@@ -1,3 +1,42 @@
 <resources>
-    <string name="app_name">ServedOnline-Android</string>
+    <string name="app_name">Served</string>
+    <string name="app_done">DONE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="login_title">Login</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_no_account">No account yet?</string>
+    <string name="login_sign_up">Sign Up!</string>
+
+    <string name="signing_up_title">Signing Up</string>
+    <string name="signing_up_name">Name</string>
+    <string name="signing_up_email">Email</string>
+    <string name="signing_up_confirm_email">Confirm Email</string>
+    <string name="signing_up_password">Password</string>
+    <string name="signing_up_confirm_password">Confirm Password</string>
+    <string name="signing_up_continue">Continue</string>
+
+    <string name="home_fragment_write_new">Write a new Recipe</string>
+    <string name="home_fragment_tab_foodies">Your Foodies</string>
+    <string name="home_fragment_tab_discover">Discover</string>
+
+    <string name="new_recipe_heading">Write a New Recipe</string>
+    <string name="new_recipe_title">Title:</string>
+    <string name="new_recipe_title_hint">What do you want to call your recipe?</string>
+    <string name="new_recipe_description_title">Brief Description:</string>
+    <string name="new_recipe_description_hint">Give a brief description of your recipe...</string>
+    <string name="new_recipe_add_a_picture">Add a picture/video (optional):</string>
+    <string name="new_recipe_ingredients">Ingredients:</string>
+    <string name="new_recipe_search">Search...</string>
+    <string name="new_recipe_automatic_tagging">Automatic Tagging</string>
+    <string name="new_recipe_next">NEXT</string>
+
+    <string name="creating_steps_description_hint">Write some instructions for your recipe...</string>
+
+    <string name="recipe_card_yum">Yum</string>
+    <string name="recipe_card_yummy">Yummy</string>
+
 </resources>

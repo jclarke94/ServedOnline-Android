@@ -1,0 +1,145 @@
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:elevation="10dp"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvServedTitle"
+                    android:layout_marginTop="@dimen/minimum_touch_area"
+                    android:layout_marginBottom="@dimen/minimum_touch_area"
+                    android:textSize="@dimen/text_title_large"
+                    android:gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/app_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvSigningUpTitle"
+                android:textSize="@dimen/text_title"
+                android:text="@string/signing_up_title"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginBottom="@dimen/padding_large"
+                android:layout_marginTop="@dimen/padding_xlarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"  />
+
+            <FrameLayout
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:background="@drawable/bg_edittext_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:hint="@string/signing_up_name"
+                    android:backgroundTint="@color/colorWhite"
+                    android:minHeight="@dimen/minimum_touch_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_xlarge"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:background="@drawable/bg_edittext_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:hint="@string/signing_up_email"
+                    android:backgroundTint="@color/colorWhite"
+                    android:minHeight="@dimen/minimum_touch_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_small"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:background="@drawable/bg_edittext_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:hint="@string/signing_up_confirm_email"
+                    android:backgroundTint="@color/colorWhite"
+                    android:minHeight="@dimen/minimum_touch_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_xlarge"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:background="@drawable/bg_edittext_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:hint="@string/signing_up_password"
+                    android:backgroundTint="@color/colorWhite"
+                    android:minHeight="@dimen/minimum_touch_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_small"
+                android:layout_marginBottom="@dimen/padding_large"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:background="@drawable/bg_edittext_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:hint="@string/signing_up_confirm_password"
+                    android:backgroundTint="@color/colorWhite"
+                    android:minHeight="@dimen/minimum_touch_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/btnSigningUpCompleted"
+                android:textSize="@dimen/text_medium"
+                android:elevation="@dimen/elevation_level_small"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:text="@string/signing_up_continue"
+                android:layout_margin="@dimen/padding_medium"
+                android:background="@drawable/bg_orange_button"
+                android:minHeight="@dimen/minimum_touch_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

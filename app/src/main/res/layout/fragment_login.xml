@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <FrameLayout
+                android:elevation="10dp"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvServedTitle"
+                    android:layout_marginTop="@dimen/minimum_touch_area"
+                    android:layout_marginBottom="@dimen/minimum_touch_area"
+                    android:textSize="@dimen/text_title_large"
+                    android:gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/app_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvLoginTitle"
+                android:textSize="@dimen/text_title"
+                android:text="@string/login_title"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginBottom="@dimen/padding_large"
+                android:layout_marginTop="@dimen/padding_xlarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:layout_marginBottom="@dimen/padding_medium"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:background="@drawable/bg_edittext_border"
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:minHeight="@dimen/minimum_touch_area"
+                    android:backgroundTint="@color/colorWhite"
+                    android:textSize="@dimen/text_medium"
+                    android:hint="@string/login_email_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_marginBottom="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small"
+                android:background="@drawable/bg_edittext_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:minHeight="@dimen/minimum_touch_area"
+                    android:backgroundTint="@color/colorWhite"
+                    android:textSize="@dimen/text_medium"
+                    android:hint="@string/login_password_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/btnDone"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:elevation="@dimen/elevation_level"
+                android:background="@drawable/bg_orange_button"
+                android:text="@string/app_done"
+                android:layout_marginBottom="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:minHeight="@dimen/minimum_touch_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="@dimen/padding_xlarge"
+                android:layout_marginBottom="@dimen/padding_small"
+                android:textColor="@color/colorGrey"
+                android:gravity="center"
+                android:text="@string/login_no_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tvSignUp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_title"
+                android:text="@string/login_sign_up"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/padding_xlarge"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+</LinearLayout>

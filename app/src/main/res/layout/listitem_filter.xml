@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/llFoodiesTab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tvFoodiesTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="@dimen/minimum_touch_area"
+            android:text="@string/home_fragment_tab_foodies"
+            android:textColor="@color/colorGrey"
+            android:textSize="@dimen/text_medium" />
+        ]
+
+        <FrameLayout
+            android:id="@+id/flFoodiesUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGrey"></FrameLayout>
+    </LinearLayout>
+
+
+
+    <FrameLayout
+        android:background="@color/colorGrey"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"></FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/llDiscoverTab"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvDiscoverTitle"
+            android:gravity="center"
+            android:text="@string/home_fragment_tab_discover"
+            android:textColor="@color/colorGrey"
+            android:textSize="@dimen/text_medium"
+            android:minHeight="@dimen/minimum_touch_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <FrameLayout
+            android:background="@color/colorGrey"
+            android:id="@+id/flDiscoverUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></FrameLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

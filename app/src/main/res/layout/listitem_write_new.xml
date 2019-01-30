@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/llWriteNew"
+    android:layout_margin="@dimen/padding_small"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/bg_orange_button"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/minimum_touch_area">
+
+    <TextView
+        android:id="@+id/tvWriteNew"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
