@@ -6,16 +6,16 @@ import android.os.Parcelable;
 public class User implements Parcelable {
 
     private int id;
-    private String displayName, firstName, familyName, preferredName, dateOfBirth;
+    private String displayName, firstName, familyName, password, salt;
     private int[] following, followers;
 
-    public User(int id, String displayName, String firstName, String familyName, String preferredName, String dateOfBirth, int[] following, int[] followers) {
+    public User(int id, String displayName, String firstName, String familyName, String pasword, String salt, int[] following, int[] followers) {
         this.id = id;
         this.displayName = displayName;
         this.firstName = firstName;
         this.familyName = familyName;
-        this.preferredName = preferredName;
-        this.dateOfBirth = dateOfBirth;
+        this.password = password;
+        this.salt = salt;
         this.following = following;
         this.followers = followers;
     }
@@ -25,8 +25,8 @@ public class User implements Parcelable {
         displayName = in.readString();
         firstName = in.readString();
         familyName = in.readString();
-        preferredName = in.readString();
-        dateOfBirth = in.readString();
+        password = in.readString();
+        salt = in.readString();
         following = in.createIntArray();
         followers = in.createIntArray();
     }
@@ -57,13 +57,9 @@ public class User implements Parcelable {
         return familyName;
     }
 
-    public String getPreferredName() {
-        return preferredName;
-    }
+    public String getPassword() { return password; }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
+    public String getSalt() { return salt; }
 
 
 
@@ -91,8 +87,8 @@ public class User implements Parcelable {
         out.writeString(displayName);
         out.writeString(firstName);
         out.writeString(familyName);
-        out.writeString(preferredName);
-        out.writeString(dateOfBirth);
+        out.writeString(password);
+        out.writeString(salt);
         out.writeIntArray(followers);
         out.writeIntArray(following);
     }
