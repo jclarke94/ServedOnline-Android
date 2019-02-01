@@ -52,7 +52,7 @@ public class DatabaseColumns {
         public static final String COMMENT = "_comment";
     }
 
-    public static class mealTimeSelection {
+    public static class MealTimeSelection {
         public static final String USER_ID = "_userId";
         public static final String RECIPE_ID = "_recipeId";
         public static final String MEAL_TYPE = "_mealType";
