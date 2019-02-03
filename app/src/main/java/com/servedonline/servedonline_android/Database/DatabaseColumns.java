@@ -29,7 +29,6 @@ public class DatabaseColumns {
         public static final String USER_ID = "_userId";
         public static final String RECIPE_TITLE = "_recipeTitle";
         public static final String RECIPE_DESCRIPTION = "_recipeDescription";
-        public static final String RECIPE_STARTED = "_recipeStarted";
         public static final String TIMER_LENGTH = "_timerLength";
     }
 
@@ -39,6 +38,12 @@ public class DatabaseColumns {
         public static final String STEP_NUMBER = "_stepNumber";
         public static final String FINAL_STEP = "_finalStep";
         public static final String TIMER = "_timer";
+    }
+
+    public static class RecipeStepsStarted {
+        public static final String RECIPE_STEP_ID = "_recipeStepId";
+        public static final String USER_ID = "_userId";
+        public static final String TIMESTAMP_STARTED = "_timestampStarted";
     }
 
     public static class Favourites {
