@@ -11,6 +11,8 @@ public class User implements Parcelable {
 
     private int id;
     private String displayName, firstName, lastName, email, password, salt;
+    private UserAddress[] userAddresses;
+    private UserFollows[] userFollows;
 
 
     public User(int id, String displayName, String firstName, String lastName, String email, String password, String salt) {
@@ -65,7 +67,21 @@ public class User implements Parcelable {
 
     public String getSalt() { return salt; }
 
+    public UserAddress[] getUserAddresses() {
+        return userAddresses;
+    }
 
+    public void setUserAddresses(UserAddress[] userAddresses) {
+        this.userAddresses = userAddresses;
+    }
+
+    public UserFollows[] getUserFollows() {
+        return userFollows;
+    }
+
+    public void setUserFollows(UserFollows[] userFollows) {
+        this.userFollows = userFollows;
+    }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
         @Override

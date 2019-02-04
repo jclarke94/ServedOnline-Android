@@ -1,6 +1,7 @@
 package com.servedonline.servedonline_android.Database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Looper;
@@ -208,14 +209,31 @@ public class Database {
         dbThread.enqueueDatabaseRequest(request, callback);
     }
 
-    public void getUser(DatabaseThread.OnDatabaseRequestComplete<User> callback) {
-        DatabaseThread.DatabaseRunnable<User> request = new DatabaseThread.DatabaseRunnable<User>() {
+    public void getUser(final String email, DatabaseThread.OnDatabaseRequestComplete<User> callback) {
+        DatabaseThread.DatabaseRunnable<User> runnable = new DatabaseThread.DatabaseRunnable<User>() {
             @Override
             public User run() {
-                SQLiteDatabase db = dbThread.getDatabaseManager().getWritableDatabase();
+                SQLiteDatabase db = dbThread.getDatabaseManager().getReadableDatabase();
 
+                String whereClause = DatabaseColumns.User.EMAIL + " = ?";
+                String[] whereArgs = { email };
+
+                User out = null;
+
+                Cursor cursor = db.query(DatabaseTables.USER, null, whereClause, whereArgs, null, null, null);
+                if (cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    out = new User(cursor);
+                }
+                cursor.close();
+                db.close();
+
+                return out;
 
             }
-        }
+        };
+        dbThread.enqueueDatabaseRequest(runnable, callback);
     }
+
+
 }

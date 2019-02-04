@@ -10,7 +10,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
+import com.servedonline.servedonline_android.Entity.User;
 import com.servedonline.servedonline_android.Network.JSON.BaseResponse;
+import com.servedonline.servedonline_android.Network.JSON.UserResponse;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,6 +20,7 @@ import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -50,6 +53,19 @@ public class ConnectionHelper {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    public UserResponse createUser(User user) {
+        String url = BASE_URL + "/User/createUser";
+
+        FormBody body = new FormBody.Builder()
+                .add("firstName", user.getFirstName())
+                .add("lastName", user.getLastName())
+                .add("email", user.getEmail())
+                .add("password", user.getPassword())
+                .build();
+
+        return performBasicNetworking(url, body, UserResponse.class);
     }
 
     /**
