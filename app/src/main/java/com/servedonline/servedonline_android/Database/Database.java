@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.servedonline.servedonline_android.Entity.User;
+
 public class Database {
 
     private DatabaseThread dbThread;
@@ -204,5 +206,16 @@ public class Database {
         };
 
         dbThread.enqueueDatabaseRequest(request, callback);
+    }
+
+    public void getUser(DatabaseThread.OnDatabaseRequestComplete<User> callback) {
+        DatabaseThread.DatabaseRunnable<User> request = new DatabaseThread.DatabaseRunnable<User>() {
+            @Override
+            public User run() {
+                SQLiteDatabase db = dbThread.getDatabaseManager().getWritableDatabase();
+
+
+            }
+        }
     }
 }

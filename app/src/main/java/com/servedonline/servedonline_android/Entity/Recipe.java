@@ -1,41 +1,52 @@
 package com.servedonline.servedonline_android.Entity;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.servedonline.servedonline_android.Database.DatabaseColumns;
+import com.servedonline.servedonline_android.util.CursorUtils;
+
 public class Recipe implements Parcelable {
 
-    private String displayName, recipeName, recipeDescription;
+    private int id;
+    private String recipeTitle, recipeDescription;
     private int userId;
-    private int yum; //0 = false, 1 = true
+    private long timerLength;
     private RecipeSteps[] recipeSteps;
     private RecipeComments[] recipeComments;
 
-    public Recipe(String displayName, String recipeName, String recipeDescription, int userId, int yum, RecipeSteps[] recipeSteps, RecipeComments[] recipeComments) {
-        this.displayName = displayName;
-        this.recipeName = recipeName;
+    public Recipe(int id, String displayName, String recipeDescription, int userId, long timerLength, RecipeSteps[] recipeSteps, RecipeComments[] recipeComments) {
+        this.id = id;
+        this.recipeTitle = displayName;
         this.recipeDescription = recipeDescription;
         this.userId = userId;
-        this.yum = yum;
+        this.timerLength = timerLength;
         this.recipeSteps = recipeSteps;
         this.recipeComments = recipeComments;
     }
 
     public Recipe(Parcel in) {
 
-        displayName = in.readString();
-        recipeName = in.readString();
+        id = in.readInt();
+        recipeTitle = in.readString();
         recipeDescription = in.readString();
         userId = in.readInt();
-        yum = in.readInt();
+        timerLength = in.readLong();
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public Recipe(Cursor cursor) {
+        id = CursorUtils.getCursorValue(cursor, DatabaseColumns.ID, id);
+        recipeTitle = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.RECIPE_TITLE, recipeTitle);
+        recipeDescription = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.RECIPE_DESCRIPTION, recipeDescription);
+        userId = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.USER_ID, userId);
+        timerLength = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.TIMER_LENGTH, timerLength);
     }
 
-    public String getRecipeName() {
-        return recipeName;
+    public int getId() { return id; }
+
+    public String getRecipeTitle() {
+        return recipeTitle;
     }
 
     public String getRecipeDescription() {
@@ -44,11 +55,7 @@ public class Recipe implements Parcelable {
 
     public int getUserId() { return userId; }
 
-    public int getYum() {
-        return yum;
-    }
-
-    public void setYum(int yum) { this.yum = yum; }
+    public long getTimerLength() { return timerLength; }
 
     public RecipeSteps[] getRecipeSteps() {
         return recipeSteps;
@@ -67,11 +74,10 @@ public class Recipe implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int i) {
 
-        out.writeString(displayName);
-        out.writeString(recipeName);
+        out.writeInt(id);
+        out.writeString(recipeTitle);
         out.writeString(recipeDescription);
         out.writeInt(userId);
-        out.writeInt(yum);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

@@ -1,48 +1,50 @@
 package com.servedonline.servedonline_android.Entity;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.servedonline.servedonline_android.Database.DatabaseColumns;
+import com.servedonline.servedonline_android.util.CursorUtils;
 
 public class User implements Parcelable {
 
     private int id;
-    private String displayName, firstName, familyName, password, salt;
-    private int[] following, followers;
+    private String displayName, firstName, lastName, email, password, salt;
 
-    public User(int id, String displayName, String firstName, String familyName, String pasword, String salt, int[] following, int[] followers) {
+
+    public User(int id, String displayName, String firstName, String lastName, String email, String password, String salt) {
         this.id = id;
         this.displayName = displayName;
         this.firstName = firstName;
-        this.familyName = familyName;
+        this.lastName = lastName;
+        this.email = email;
         this.password = password;
         this.salt = salt;
-        this.following = following;
-        this.followers = followers;
     }
 
     public User(Parcel in) {
         id = in.readInt();
         displayName = in.readString();
         firstName = in.readString();
-        familyName = in.readString();
+        lastName = in.readString();
+        email = in.readString();
         password = in.readString();
         salt = in.readString();
-        following = in.createIntArray();
-        followers = in.createIntArray();
     }
 
-
+    public User(Cursor cursor) {
+        id = CursorUtils.getCursorValue(cursor, DatabaseColumns.ID, id);
+        displayName = CursorUtils.getCursorValue(cursor, DatabaseColumns.User.DISPLAY_NAME, displayName);
+        firstName = CursorUtils.getCursorValue(cursor, DatabaseColumns.User.FIRST_NAME, firstName);
+        lastName = CursorUtils.getCursorValue(cursor, DatabaseColumns.User.LAST_NAME, lastName);
+        email = CursorUtils.getCursorValue(cursor, DatabaseColumns.User.EMAIL, email);
+        password = CursorUtils.getCursorValue(cursor, DatabaseColumns.User.PASSWORD, password);
+        salt = CursorUtils.getCursorValue(cursor, DatabaseColumns.User.SALT, salt);
+    }
 
     public int getId() {
         return id;
-    }
-
-    public int[] getFollowing() {
-        return following;
-    }
-
-    public int[] getFollowers() {
-        return followers;
     }
 
     public String getDisplayName() {
@@ -53,9 +55,11 @@ public class User implements Parcelable {
         return firstName;
     }
 
-    public String getFamilyName() {
-        return familyName;
+    public String getLastName() {
+        return lastName;
     }
+
+    public String getEmail() { return email; }
 
     public String getPassword() { return password; }
 
@@ -86,10 +90,9 @@ public class User implements Parcelable {
         out.writeInt(id);
         out.writeString(displayName);
         out.writeString(firstName);
-        out.writeString(familyName);
+        out.writeString(lastName);
+        out.writeString(email);
         out.writeString(password);
         out.writeString(salt);
-        out.writeIntArray(followers);
-        out.writeIntArray(following);
     }
 }
