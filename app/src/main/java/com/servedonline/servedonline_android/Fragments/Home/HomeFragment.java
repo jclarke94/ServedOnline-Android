@@ -124,29 +124,29 @@ public class HomeFragment extends Fragment {
                 wHolder.title.setText(item.buttonTitle);
 
             } else if (viewType == TYPE_RECIPE_CARD) {
-                final RecipeCardViewHolder rHolder = (RecipeCardViewHolder) holder;
-                final RecipeCardItem item = (RecipeCardItem) items.get(position);
-
-                rHolder.recipeTitle.setText(item.getRecipe().getRecipeName());
-                rHolder.recipeDescription.setText(item.getRecipe().getRecipeDescription());
-                rHolder.displayName.setText(item.getRecipe().getRecipeName());
-                if (item.getRecipe().getYum() == 0) {
-                    rHolder.yum.setText(R.string.recipe_card_yum);
-                    rHolder.yum.setTextColor(getResources().getColor(R.color.colorGrey));
-                } else {
-                    rHolder.yum.setText(R.string.recipe_card_yummy);
-                    rHolder.yum.setTextColor(getResources().getColor(R.color.colorBlue));
-                }
-                rHolder.yum.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (item.getRecipe().getYum() == 0) {
-                            item.getRecipe().setYum(1);
-                        } else {
-                            item.getRecipe().setYum(0);
-                        }
-                    }
-                });
+//                final RecipeCardViewHolder rHolder = (RecipeCardViewHolder) holder;
+//                final RecipeCardItem item = (RecipeCardItem) items.get(position);
+//
+//                rHolder.recipeTitle.setText(item.getRecipe().getRecipeName());
+//                rHolder.recipeDescription.setText(item.getRecipe().getRecipeDescription());
+//                rHolder.displayName.setText(item.getRecipe().getRecipeName());
+//                if (item.getRecipe().getYum() == 0) {
+//                    rHolder.yum.setText(R.string.recipe_card_yum);
+//                    rHolder.yum.setTextColor(getResources().getColor(R.color.colorGrey));
+//                } else {
+//                    rHolder.yum.setText(R.string.recipe_card_yummy);
+//                    rHolder.yum.setTextColor(getResources().getColor(R.color.colorBlue));
+//                }
+//                rHolder.yum.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if (item.getRecipe().getYum() == 0) {
+//                            item.getRecipe().setYum(1);
+//                        } else {
+//                            item.getRecipe().setYum(0);
+//                        }
+//                    }
+//                });
             } else if (viewType == TYPE_FILTER_SELECTION) {
                 FilterViewHolder fHolder = (FilterViewHolder) holder;
                 FilterItem item = (FilterItem) items.get(position);

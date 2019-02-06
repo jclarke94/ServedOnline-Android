@@ -12,7 +12,8 @@
     <string name="login_sign_up">Sign Up!</string>
 
     <string name="signing_up_title">Signing Up</string>
-    <string name="signing_up_name">Name</string>
+    <string name="signing_up_first_name">First Name</string>
+    <string name="signing_up_last_name">Last Name</string>
     <string name="signing_up_email">Email</string>
     <string name="signing_up_confirm_email">Confirm Email</string>
     <string name="signing_up_password">Password</string>

@@ -10,8 +10,6 @@ public class DatabaseColumns {
         public static final String DISPLAY_NAME = "_displayName";
         public static final String EMAIL = "_email";
         public static final String PASSWORD = "_password";
-        public static final String SALT = "_salt";
-        public static final String PIN = "_pin";
     }
 
     public static class UserAddress {

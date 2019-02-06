@@ -33,9 +33,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 + DatabaseColumns.User.LAST_NAME + " TEXT NOT NULL,"
                 + DatabaseColumns.User.DISPLAY_NAME + " TEXT NOT NULL,"
                 + DatabaseColumns.User.EMAIL + " TEXT NOT NULL,"
-                + DatabaseColumns.User.PASSWORD + " TEXT NOT NULL,"
-                + DatabaseColumns.User.SALT + " TEXT,"
-                + DatabaseColumns.User.PIN + " TEXT"
+                + DatabaseColumns.User.PASSWORD + " TEXT NOT NULL"
                 + ")";
         db.execSQL(createUser);
 

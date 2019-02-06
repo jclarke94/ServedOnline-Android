@@ -11,4 +11,5 @@
     <color name="colorGreen">#11d62b</color>
     <color name="colorBlack">#202020</color>
     <color name="colorBlue">#1ea7d9</color>
+    <color name="black_transparent">#55000000</color>
 </resources>

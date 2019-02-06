@@ -209,18 +209,15 @@ public class Database {
         dbThread.enqueueDatabaseRequest(request, callback);
     }
 
-    public void getUser(final String email, DatabaseThread.OnDatabaseRequestComplete<User> callback) {
+    public void getUser( DatabaseThread.OnDatabaseRequestComplete<User> callback) {
         DatabaseThread.DatabaseRunnable<User> runnable = new DatabaseThread.DatabaseRunnable<User>() {
             @Override
             public User run() {
                 SQLiteDatabase db = dbThread.getDatabaseManager().getReadableDatabase();
 
-                String whereClause = DatabaseColumns.User.EMAIL + " = ?";
-                String[] whereArgs = { email };
-
                 User out = null;
 
-                Cursor cursor = db.query(DatabaseTables.USER, null, whereClause, whereArgs, null, null, null);
+                Cursor cursor = db.query(DatabaseTables.USER, null, null, null, null, null, null);
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
                     out = new User(cursor);
@@ -235,5 +232,25 @@ public class Database {
         dbThread.enqueueDatabaseRequest(runnable, callback);
     }
 
+    public void checkLoginStatus(DatabaseThread.OnDatabaseRequestComplete<Boolean> callback) {
+        DatabaseThread.DatabaseRunnable<Boolean> runnable = new DatabaseThread.DatabaseRunnable<Boolean>() {
+            @Override
+            public Boolean run() {
+                SQLiteDatabase db = dbThread.getDatabaseManager().getReadableDatabase();
+
+                Boolean out = false;
+
+                Cursor cursor = db.query(DatabaseTables.USER, null, null, null, null, null, null);
+                if (cursor.getCount() > 0) {
+                    out = true;
+                }
+                cursor.close();
+                db.close();
+
+                return out;
+            }
+        };
+        dbThread.enqueueDatabaseRequest(runnable, callback);
+    }
 
 }

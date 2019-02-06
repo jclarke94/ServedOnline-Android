@@ -36,7 +36,7 @@ public abstract class DatabaseGoverned {
      * @return      Database.Columns.*
      */
     public String getDatabaseIdColumn() {
-        return DatabaseManager.Columns.ID;
+        return DatabaseColumns.ID;
     }
 }
 

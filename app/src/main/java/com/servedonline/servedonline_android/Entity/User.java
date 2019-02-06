@@ -1,28 +1,28 @@
 package com.servedonline.servedonline_android.Entity;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.servedonline.servedonline_android.Database.DatabaseColumns;
+import com.servedonline.servedonline_android.Database.DatabaseGoverned;
+import com.servedonline.servedonline_android.Database.DatabaseTables;
 import com.servedonline.servedonline_android.util.CursorUtils;
 
-public class User implements Parcelable {
+public class User extends DatabaseGoverned implements Parcelable {
 
     private int id;
-    private String displayName, firstName, lastName, email, password, salt;
+    private String displayName, firstName, lastName, email, password;
     private UserAddress[] userAddresses;
     private UserFollows[] userFollows;
 
 
-    public User(int id, String displayName, String firstName, String lastName, String email, String password, String salt) {
-        this.id = id;
-        this.displayName = displayName;
+    public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.salt = salt;
     }
 
     public User(Parcel in) {
@@ -32,7 +32,6 @@ public class User implements Parcelable {
         lastName = in.readString();
         email = in.readString();
         password = in.readString();
-        salt = in.readString();
     }
 
     public User(Cursor cursor) {
@@ -42,15 +41,22 @@ public class User implements Parcelable {
         lastName = CursorUtils.getCursorValue(cursor, DatabaseColumns.User.LAST_NAME, lastName);
         email = CursorUtils.getCursorValue(cursor, DatabaseColumns.User.EMAIL, email);
         password = CursorUtils.getCursorValue(cursor, DatabaseColumns.User.PASSWORD, password);
-        salt = CursorUtils.getCursorValue(cursor, DatabaseColumns.User.SALT, salt);
     }
 
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getDisplayName() {
         return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public String getFirstName() {
@@ -64,8 +70,6 @@ public class User implements Parcelable {
     public String getEmail() { return email; }
 
     public String getPassword() { return password; }
-
-    public String getSalt() { return salt; }
 
     public UserAddress[] getUserAddresses() {
         return userAddresses;
@@ -81,6 +85,29 @@ public class User implements Parcelable {
 
     public void setUserFollows(UserFollows[] userFollows) {
         this.userFollows = userFollows;
+    }
+
+    @Override
+    public String getDatabaseTable() {
+        return DatabaseTables.USER;
+    }
+
+    @Override
+    public String getDatabaseId() {
+        return String.valueOf(id);
+    }
+
+    @Override
+    public ContentValues toContentValues() {
+        ContentValues out = new ContentValues();
+        out.put(DatabaseColumns.ID, id);
+        out.put(DatabaseColumns.User.DISPLAY_NAME, displayName);
+        out.put(DatabaseColumns.User.FIRST_NAME, firstName);
+        out.put(DatabaseColumns.User.LAST_NAME, lastName);
+        out.put(DatabaseColumns.User.EMAIL, email);
+        out.put(DatabaseColumns.User.PASSWORD, password);
+
+        return out;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -109,6 +136,5 @@ public class User implements Parcelable {
         out.writeString(lastName);
         out.writeString(email);
         out.writeString(password);
-        out.writeString(salt);
     }
 }
