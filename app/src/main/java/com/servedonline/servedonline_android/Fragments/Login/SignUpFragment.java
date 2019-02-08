@@ -3,6 +3,7 @@ package com.servedonline.servedonline_android.Fragments.Login;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,14 +54,14 @@ public class SignUpFragment extends Fragment {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNewUser();
+                checkFieldsCompleted();
             }
         });
 
         return v;
     }
 
-    private void createNewUser() {
+    private void checkFieldsCompleted() {
         String firstName = null;
         String lastName = null;
         String email = null;
@@ -100,38 +101,52 @@ public class SignUpFragment extends Fragment {
             fieldsCompleted = false;
         }
 
-
         if (fieldsCompleted) {
             if (email.matches(confirmEmail) && password.matches(confirmPassword)) {
                 final User user = new User(firstName, lastName, email, password);
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        final UserResponse response = ((MainActivity) getActivity()).getConnectionHelper().createUser(user);
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (response != null) {
-                                    if (response.isSuccess()) {
-                                        ((MainActivity) getActivity()).getDatabase().insert(response.getData(), null);
-                                        passToHome();
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }).start();
+                createNewUser(user);
 
             } else if (email.matches(confirmEmail) && !password.matches(confirmPassword)) {
                 //todo passwords don't match
+                Log.d("SignUpFragment", "passwords don't match");
             } else {
                 //todo emails don't match
+                Log.d("SignUpFragment", "emails don't match");
             }
-
         } else {
             //todo fields aren't completed
+            Log.d("SIgnUpFragment", "Fields not completed");
         }
+
+    }
+
+    private void createNewUser(final User user) {
+
+        if (((MainActivity) getActivity()).getConnectionHelper().isNetworkAvailable()) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    final UserResponse response = ((MainActivity) getActivity()).getConnectionHelper().createUser(user);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (response != null) {
+                                if (response.isSuccess()) {
+                                    ((MainActivity) getActivity()).getDatabase().insert(response.getData(), null);
+                                    passToHome();
+                                }
+                            }
+                        }
+                    });
+                }
+            }).start();
+        } else {
+            Log.d("SignUpFragment", "Network not connected");
+        }
+
+
+
 
 
     }

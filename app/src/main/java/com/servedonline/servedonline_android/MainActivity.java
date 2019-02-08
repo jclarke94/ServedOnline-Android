@@ -34,6 +34,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         database = new Database(this);
+        connectionHelper = new ConnectionHelper(this);
 
 
         if (findViewById(R.id.fragment_container) != null) {
