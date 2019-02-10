@@ -1,13 +1,16 @@
 package com.servedonline.servedonline_android.Entity;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.servedonline.servedonline_android.Database.DatabaseColumns;
+import com.servedonline.servedonline_android.Database.DatabaseGoverned;
+import com.servedonline.servedonline_android.Database.DatabaseTables;
 import com.servedonline.servedonline_android.util.CursorUtils;
 
-public class MealTimeSelection implements Parcelable {
+public class MealTimeSelection extends DatabaseGoverned implements Parcelable {
 
     private int id, userId, recipeId, mealType;
     private long dateSelected;
@@ -55,6 +58,27 @@ public class MealTimeSelection implements Parcelable {
 
     public long getDateSelected() {
         return dateSelected;
+    }
+
+    @Override
+    public String getDatabaseTable() {
+        return DatabaseTables.MEAL_TIME_SELECTION;
+    }
+
+    @Override
+    public String getDatabaseId() {
+        return String.valueOf(id);
+    }
+
+    @Override
+    public ContentValues toContentValues() {
+        ContentValues out = new ContentValues();
+        out.put(DatabaseColumns.ID, id);
+        out.put(DatabaseColumns.MealTimeSelection.USER_ID, userId);
+        out.put(DatabaseColumns.MealTimeSelection.RECIPE_ID, recipeId);
+        out.put(DatabaseColumns.MealTimeSelection.MEAL_TYPE, mealType);
+        out.put(DatabaseColumns.MealTimeSelection.DATE_SELECTED, dateSelected);
+        return out;
     }
 
     @Override

@@ -1,13 +1,16 @@
 package com.servedonline.servedonline_android.Entity;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.servedonline.servedonline_android.Database.DatabaseColumns;
+import com.servedonline.servedonline_android.Database.DatabaseGoverned;
+import com.servedonline.servedonline_android.Database.DatabaseTables;
 import com.servedonline.servedonline_android.util.CursorUtils;
 
-public class Recipe implements Parcelable {
+public class Recipe extends DatabaseGoverned implements Parcelable {
 
     private int id;
     private String recipeTitle, recipeDescription;
@@ -41,6 +44,27 @@ public class Recipe implements Parcelable {
         recipeDescription = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.RECIPE_DESCRIPTION, recipeDescription);
         userId = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.USER_ID, userId);
         timerLength = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.TIMER_LENGTH, timerLength);
+    }
+
+    @Override
+    public String getDatabaseTable() {
+        return DatabaseTables.RECIPE;
+    }
+
+    @Override
+    public String getDatabaseId() {
+        return String.valueOf(id);
+    }
+
+    @Override
+    public ContentValues toContentValues() {
+        ContentValues out = new ContentValues();
+        out.put(DatabaseColumns.ID, id);
+        out.put(DatabaseColumns.Recipe.USER_ID, userId);
+        out.put(DatabaseColumns.Recipe.RECIPE_TITLE, recipeTitle);
+        out.put(DatabaseColumns.Recipe.RECIPE_DESCRIPTION, recipeDescription);
+        out.put(DatabaseColumns.Recipe.TIMER_LENGTH, timerLength);
+        return out;
     }
 
     public int getId() { return id; }

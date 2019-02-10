@@ -1,13 +1,16 @@
 package com.servedonline.servedonline_android.Entity;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.servedonline.servedonline_android.Database.DatabaseColumns;
+import com.servedonline.servedonline_android.Database.DatabaseGoverned;
+import com.servedonline.servedonline_android.Database.DatabaseTables;
 import com.servedonline.servedonline_android.util.CursorUtils;
 
-public class Favourite implements Parcelable {
+public class Favourite extends DatabaseGoverned implements Parcelable {
 
     private int id, userId, recipeId;
 
@@ -46,6 +49,26 @@ public class Favourite implements Parcelable {
         dest.writeInt(id);
         dest.writeInt(userId);
         dest.writeInt(recipeId);
+    }
+
+    @Override
+    public String getDatabaseTable() {
+        return DatabaseTables.FAVOURITES;
+    }
+
+    @Override
+    public String getDatabaseId() {
+        return String.valueOf(id);
+    }
+
+    @Override
+    public ContentValues toContentValues() {
+        ContentValues out = new ContentValues();
+        out.put(DatabaseColumns.ID, id);
+        out.put(DatabaseColumns.Favourites.USER_ID, userId);
+        out.put(DatabaseColumns.Favourites.RECIPE_ID, recipeId);
+
+        return out;
     }
 
     @Override

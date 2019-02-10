@@ -1,13 +1,16 @@
 package com.servedonline.servedonline_android.Entity;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.servedonline.servedonline_android.Database.DatabaseColumns;
+import com.servedonline.servedonline_android.Database.DatabaseGoverned;
+import com.servedonline.servedonline_android.Database.DatabaseTables;
 import com.servedonline.servedonline_android.util.CursorUtils;
 
-public class UserAddress implements Parcelable {
+public class UserAddress extends DatabaseGoverned implements Parcelable {
 
     private int id, userId, primaryAddress;
     private String address1, address2, address3, city, county, country;
@@ -46,6 +49,31 @@ public class UserAddress implements Parcelable {
         city = CursorUtils.getCursorValue(cursor, DatabaseColumns.UserAddress.CITY, city);
         county = CursorUtils.getCursorValue(cursor, DatabaseColumns.UserAddress.COUNTY, county);
         country = CursorUtils.getCursorValue(cursor, DatabaseColumns.UserAddress.COUNTRY, country);
+    }
+
+    @Override
+    public String getDatabaseTable() {
+        return DatabaseTables.USER_ADDRESS;
+    }
+
+    @Override
+    public String getDatabaseId() {
+        return String.valueOf(id);
+    }
+
+    @Override
+    public ContentValues toContentValues() {
+        ContentValues out = new ContentValues();
+        out.put(DatabaseColumns.ID, id);
+        out.put(DatabaseColumns.UserAddress.USER_ID, userId);
+        out.put(DatabaseColumns.UserAddress.PRIMARY_ADDRESS, primaryAddress);
+        out.put(DatabaseColumns.UserAddress.ADDRESS_1, address1);
+        out.put(DatabaseColumns.UserAddress.ADDRESS_2, address2);
+        out.put(DatabaseColumns.UserAddress.ADDRESS_3, address3);
+        out.put(DatabaseColumns.UserAddress.CITY, city);
+        out.put(DatabaseColumns.UserAddress.COUNTY, county);
+        out.put(DatabaseColumns.UserAddress.COUNTRY, country);
+        return out;
     }
 
     public int getId() {
