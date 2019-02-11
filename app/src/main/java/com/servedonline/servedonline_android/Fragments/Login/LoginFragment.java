@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.servedonline.servedonline_android.Fragments.Home.HomeFragment;
@@ -16,9 +17,9 @@ public class LoginFragment extends Fragment {
 
     public static final String BACKSTACK_TAG = "loginFragment";
 
-    public TextView tvHeading, tvTitle, tvSignUp;
-
-    public Button btnDone;
+    private TextView tvHeading, tvTitle, tvSignUp;
+    private EditText etEmail, etPassword;
+    private Button btnDone;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,6 +31,8 @@ public class LoginFragment extends Fragment {
         tvTitle = (TextView) v.findViewById(R.id.tvLoginTitle);
         tvSignUp = (TextView) v.findViewById(R.id.tvSignUp);
         btnDone = (Button) v.findViewById(R.id.btnDone);
+        etEmail = (EditText) v.findViewById(R.id.etEmail);
+        etPassword = (EditText) v.findViewById(R.id.etPassword);
 
         tvHeading.setShadowLayer(4, 4, 4, getResources().getColor(R.color.colorGrey));
         tvTitle.setShadowLayer(2, 2, 2, getResources().getColor(R.color.colorGrey));
@@ -54,6 +57,16 @@ public class LoginFragment extends Fragment {
         return v;
     }
 
+    public void checkFieldsCompleted() {
+        if (etEmail.getText() != null && etPassword.getText() != null) {
 
+        } else {
+
+        }
+    }
+
+    public void login() {
+
+    }
 
 }

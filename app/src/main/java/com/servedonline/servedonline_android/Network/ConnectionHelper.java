@@ -68,6 +68,17 @@ public class ConnectionHelper {
         return performBasicNetworking(url, body, UserResponse.class);
     }
 
+    public UserResponse loginUser(String email, String password) {
+        String url = BASE_URL + "/User/getUser";
+
+        FormBody body = new FormBody.Builder()
+                .add("email", email)
+                .add("password", password)
+                .build();
+
+        return performBasicNetworking(url, body, UserResponse.class);
+    }
+
     /**
      * Performs a very basic Network call, simplifies networking removing a lot of boilerplate
      * @param url               Url to call

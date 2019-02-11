@@ -28,6 +28,7 @@ public class DatabaseColumns {
         public static final String RECIPE_TITLE = "_recipeTitle";
         public static final String RECIPE_DESCRIPTION = "_recipeDescription";
         public static final String TIMER_LENGTH = "_timerLength";
+        public static final String LIKES = "_likes";
     }
 
     public static class RecipeSteps {

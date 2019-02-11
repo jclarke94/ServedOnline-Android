@@ -14,17 +14,18 @@ public class Recipe extends DatabaseGoverned implements Parcelable {
 
     private int id;
     private String recipeTitle, recipeDescription;
-    private int userId;
+    private int userId, likes;
     private long timerLength;
     private RecipeSteps[] recipeSteps;
     private RecipeComments[] recipeComments;
 
-    public Recipe(int id, String displayName, String recipeDescription, int userId, long timerLength, RecipeSteps[] recipeSteps, RecipeComments[] recipeComments) {
+    public Recipe(int id, String displayName, String recipeDescription, int userId, long timerLength, int likes, RecipeSteps[] recipeSteps, RecipeComments[] recipeComments) {
         this.id = id;
         this.recipeTitle = displayName;
         this.recipeDescription = recipeDescription;
         this.userId = userId;
         this.timerLength = timerLength;
+        this.likes = likes;
         this.recipeSteps = recipeSteps;
         this.recipeComments = recipeComments;
     }
@@ -36,6 +37,7 @@ public class Recipe extends DatabaseGoverned implements Parcelable {
         recipeDescription = in.readString();
         userId = in.readInt();
         timerLength = in.readLong();
+        likes = in.readInt();
     }
 
     public Recipe(Cursor cursor) {
@@ -44,6 +46,7 @@ public class Recipe extends DatabaseGoverned implements Parcelable {
         recipeDescription = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.RECIPE_DESCRIPTION, recipeDescription);
         userId = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.USER_ID, userId);
         timerLength = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.TIMER_LENGTH, timerLength);
+        likes = CursorUtils.getCursorValue(cursor, DatabaseColumns.Recipe.LIKES, likes);
     }
 
     @Override
