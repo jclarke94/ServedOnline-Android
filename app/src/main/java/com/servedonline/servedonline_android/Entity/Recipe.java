@@ -67,6 +67,7 @@ public class Recipe extends DatabaseGoverned implements Parcelable {
         out.put(DatabaseColumns.Recipe.RECIPE_TITLE, recipeTitle);
         out.put(DatabaseColumns.Recipe.RECIPE_DESCRIPTION, recipeDescription);
         out.put(DatabaseColumns.Recipe.TIMER_LENGTH, timerLength);
+        out.put(DatabaseColumns.Recipe.LIKES, likes);
         return out;
     }
 
@@ -83,6 +84,10 @@ public class Recipe extends DatabaseGoverned implements Parcelable {
     public int getUserId() { return userId; }
 
     public long getTimerLength() { return timerLength; }
+
+    public int getLikes() {
+        return likes;
+    }
 
     public RecipeSteps[] getRecipeSteps() {
         return recipeSteps;
@@ -105,6 +110,8 @@ public class Recipe extends DatabaseGoverned implements Parcelable {
         out.writeString(recipeTitle);
         out.writeString(recipeDescription);
         out.writeInt(userId);
+        out.writeLong(timerLength);
+        out.writeInt(likes);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
