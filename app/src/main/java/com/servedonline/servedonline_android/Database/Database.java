@@ -232,17 +232,21 @@ public class Database {
         dbThread.enqueueDatabaseRequest(runnable, callback);
     }
 
-    public void checkLoginStatus(DatabaseThread.OnDatabaseRequestComplete<Boolean> callback) {
-        DatabaseThread.DatabaseRunnable<Boolean> runnable = new DatabaseThread.DatabaseRunnable<Boolean>() {
+    public void getUser(final int userId, DatabaseThread.OnDatabaseRequestComplete<User> callback) {
+        DatabaseThread.DatabaseRunnable<User> runnable = new DatabaseThread.DatabaseRunnable<User>() {
             @Override
-            public Boolean run() {
+            public User run() {
                 SQLiteDatabase db = dbThread.getDatabaseManager().getReadableDatabase();
 
-                Boolean out = false;
+                User out = null;
+                String whereClause = DatabaseColumns.ID + "= ?";
+                String[] whereArgs = { String.valueOf(userId) };
 
-                Cursor cursor = db.query(DatabaseTables.USER, null, null, null, null, null, null);
+                Cursor cursor = db.query(DatabaseTables.USER, null, whereClause, whereArgs, null, null, null);
                 if (cursor.getCount() > 0) {
-                    out = true;
+                    cursor.moveToFirst();
+
+                    out = new User(cursor);
                 }
                 cursor.close();
                 db.close();
@@ -252,5 +256,6 @@ public class Database {
         };
         dbThread.enqueueDatabaseRequest(runnable, callback);
     }
+
 
 }

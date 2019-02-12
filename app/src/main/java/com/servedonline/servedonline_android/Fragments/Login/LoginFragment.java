@@ -72,6 +72,8 @@ public class LoginFragment extends Fragment {
     }
 
     public void login() {
+        ((MainActivity) getActivity()).showBlocker();
+
         if (((MainActivity) getActivity()).getConnectionHelper().isNetworkAvailable()) {
             new Thread(new Runnable() {
                 @Override
@@ -87,6 +89,7 @@ public class LoginFragment extends Fragment {
                                     ((MainActivity) getActivity()).getDatabase().insert(response.getData(), new DatabaseThread.OnDatabaseRequestComplete() {
                                         @Override
                                         public void onRequestComplete(Object returnValue) {
+                                            ((MainActivity) getActivity()).hideBlocker();
                                             passToHome();
                                         }
                                     });

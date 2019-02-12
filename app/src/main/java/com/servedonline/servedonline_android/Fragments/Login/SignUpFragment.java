@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.servedonline.servedonline_android.Database.DatabaseThread;
 import com.servedonline.servedonline_android.Entity.User;
 import com.servedonline.servedonline_android.Fragments.Home.HomeFragment;
 import com.servedonline.servedonline_android.MainActivity;
@@ -122,6 +123,7 @@ public class SignUpFragment extends Fragment {
     }
 
     private void createNewUser(final User user) {
+        ((MainActivity) getActivity()).showBlocker();
 
         if (((MainActivity) getActivity()).getConnectionHelper().isNetworkAvailable()) {
             new Thread(new Runnable() {
@@ -133,8 +135,15 @@ public class SignUpFragment extends Fragment {
                         public void run() {
                             if (response != null) {
                                 if (response.isSuccess()) {
-                                    ((MainActivity) getActivity()).getDatabase().insert(response.getData(), null);
-                                    passToHome();
+                                    ((MainActivity) getActivity()).getDatabase().insert(response.getData(), new DatabaseThread.OnDatabaseRequestComplete() {
+                                        @Override
+                                        public void onRequestComplete(Object returnValue) {
+                                            ((MainActivity) getActivity()).hideBlocker();
+
+                                            passToHome();
+                                        }
+                                    });
+
                                 }
                             }
                         }

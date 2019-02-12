@@ -1,14 +1,19 @@
 package com.servedonline.servedonline_android;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.servedonline.servedonline_android.Database.Database;
 import com.servedonline.servedonline_android.Database.DatabaseThread;
+import com.servedonline.servedonline_android.Entity.User;
 import com.servedonline.servedonline_android.Fragments.Home.HomeFragment;
 import com.servedonline.servedonline_android.Fragments.Login.LoginFragment;
 import com.servedonline.servedonline_android.Network.ConnectionHelper;
@@ -17,13 +22,18 @@ import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity {
 
+    public static final String LOGIN_ID = "_loginId";
+    public User currentUser;
+
+    public SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
     private ImageView navBar;
+    private FrameLayout flBlocker;
 
     private boolean allowBackPress = true;
 
     private Database database;
 
-    private boolean loggedIn;
     private ConnectionHelper connectionHelper;
 
     private ArrayList<OnBackPressedListener> onBackPressedListeners = new ArrayList<>();
@@ -32,6 +42,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        flBlocker = (FrameLayout) findViewById(R.id.flBlocker);
 
         database = new Database(this);
         connectionHelper = new ConnectionHelper(this);
@@ -44,24 +56,32 @@ public class MainActivity extends FragmentActivity {
             }
         }
 
-        loggedIn = false;
-        getDatabase().checkLoginStatus(new DatabaseThread.OnDatabaseRequestComplete<Boolean>() {
-            @Override
-            public void onRequestComplete(Boolean returnValue) {
-                loggedIn = returnValue;
-            }
-        });
 
-        if (loggedIn) {
+        int loginId = sp.getInt(LOGIN_ID, 0);
+        if (loginId != 0) {
+            //todo create a load up page
 
-            HomeFragment homeFragment = new HomeFragment();
+            showBlocker();
 
-            homeFragment.setArguments(getIntent().getExtras());
+            getDatabase().getUser(loginId, new DatabaseThread.OnDatabaseRequestComplete<User>() {
+                @Override
+                public void onRequestComplete(User returnValue) {
+                    hideBlocker();
 
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, homeFragment).commit();
+                    currentUser = returnValue;
+
+                    HomeFragment homeFragment = new HomeFragment();
+
+                    homeFragment.setArguments(getIntent().getExtras());
+
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.fragment_container, homeFragment).commit();
+                }
+            });
+
 
         } else {
+            //todo load up page
 
             LoginFragment loginFragment = new LoginFragment();
 
@@ -70,6 +90,7 @@ public class MainActivity extends FragmentActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, loginFragment).commit();
         }
+
 
 
 
@@ -100,6 +121,14 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    public void showBlocker() {
+        flBlocker.setVisibility(View.VISIBLE);
+    }
+
+    public void hideBlocker() {
+        flBlocker.setVisibility(View.GONE);
+    }
+
     public void navigate(Fragment fragment, String backstackTag) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
@@ -120,5 +149,13 @@ public class MainActivity extends FragmentActivity {
 
     public ConnectionHelper getConnectionHelper() {
         return connectionHelper;
+    }
+
+    public void loginUser(int userId) {
+        sp.edit().putInt(LOGIN_ID, userId).commit();
+    }
+
+    public void logoutUser() {
+        sp.edit().putInt(LOGIN_ID, 0).commit();
     }
 }
