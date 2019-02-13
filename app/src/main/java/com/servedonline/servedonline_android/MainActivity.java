@@ -16,6 +16,7 @@ import com.servedonline.servedonline_android.Database.DatabaseThread;
 import com.servedonline.servedonline_android.Entity.User;
 import com.servedonline.servedonline_android.Fragments.Home.HomeFragment;
 import com.servedonline.servedonline_android.Fragments.Login.LoginFragment;
+import com.servedonline.servedonline_android.Fragments.Login.LogoFragment;
 import com.servedonline.servedonline_android.Network.ConnectionHelper;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class MainActivity extends FragmentActivity {
     public static final String LOGIN_ID = "_loginId";
     public User currentUser;
 
-    public SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    public SharedPreferences sp;
 
     private ImageView navBar;
     private FrameLayout flBlocker;
@@ -43,6 +44,8 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+
         flBlocker = (FrameLayout) findViewById(R.id.flBlocker);
 
         database = new Database(this);
@@ -57,41 +60,10 @@ public class MainActivity extends FragmentActivity {
         }
 
 
-        int loginId = sp.getInt(LOGIN_ID, 0);
-        if (loginId != 0) {
-            //todo create a load up page
-
-            showBlocker();
-
-            getDatabase().getUser(loginId, new DatabaseThread.OnDatabaseRequestComplete<User>() {
-                @Override
-                public void onRequestComplete(User returnValue) {
-                    hideBlocker();
-
-                    currentUser = returnValue;
-
-                    HomeFragment homeFragment = new HomeFragment();
-
-                    homeFragment.setArguments(getIntent().getExtras());
-
-                    getSupportFragmentManager().beginTransaction()
-                            .add(R.id.fragment_container, homeFragment).commit();
-                }
-            });
-
-
-        } else {
-            //todo load up page
-
-            LoginFragment loginFragment = new LoginFragment();
-
-            loginFragment.setArguments(getIntent().getExtras());
-
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, loginFragment).commit();
-        }
-
-
+        LogoFragment logoFragment = new LogoFragment();
+        logoFragment.setArguments(getIntent().getExtras());
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, logoFragment).commit();
 
 
     }
@@ -119,6 +91,10 @@ public class MainActivity extends FragmentActivity {
         for (int i = onBackPressedListeners.size() - 1; i >= 0; i--) {
             onBackPressedListeners.remove((int) removeIndexes.get(i));
         }
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
     public void showBlocker() {
