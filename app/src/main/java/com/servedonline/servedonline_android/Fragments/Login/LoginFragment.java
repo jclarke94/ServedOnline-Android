@@ -1,7 +1,9 @@
 package com.servedonline.servedonline_android.Fragments.Login;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,6 +92,11 @@ public class LoginFragment extends Fragment {
                                         @Override
                                         public void onRequestComplete(Object returnValue) {
                                             ((MainActivity) getActivity()).hideBlocker();
+
+                                            //todo save id to shared preference in MainActivity
+                                            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+                                            sp.edit().putInt(MainActivity.LOGIN_ID, response.getData().getId()).apply();
+
                                             passToHome();
                                         }
                                     });
