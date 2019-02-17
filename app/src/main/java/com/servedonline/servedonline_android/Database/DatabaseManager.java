@@ -55,6 +55,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 + DatabaseColumns.Recipe.USER_ID + " INTEGER NOT NULL,"
                 + DatabaseColumns.Recipe.RECIPE_TITLE + " TEXT NOT NULL,"
                 + DatabaseColumns.Recipe.RECIPE_DESCRIPTION + " TEXT NOT NULL,"
+                + DatabaseColumns.Recipe.USER_NAME + " TEXT NOT NULL,"
                 + DatabaseColumns.Recipe.TIMER_LENGTH + " INTEGER,"
                 + DatabaseColumns.Recipe.LIKES + " INTEGER NOT NULL"
                 + ")";

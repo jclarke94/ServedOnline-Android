@@ -20,7 +20,7 @@
     <string name="signing_up_confirm_password">Confirm Password</string>
     <string name="signing_up_continue">Continue</string>
 
-    <string name="home_fragment_write_new">Write a new Recipe</string>
+    <string name="home_fragment_create_new">Create a new Recipe</string>
     <string name="home_fragment_tab_foodies">Your Foodies</string>
     <string name="home_fragment_tab_discover">Discover</string>
 

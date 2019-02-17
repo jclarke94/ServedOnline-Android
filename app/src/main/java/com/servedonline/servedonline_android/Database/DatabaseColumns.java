@@ -27,6 +27,7 @@ public class DatabaseColumns {
         public static final String USER_ID = "_userId";
         public static final String RECIPE_TITLE = "_recipeTitle";
         public static final String RECIPE_DESCRIPTION = "_recipeDescription";
+        public static final String USER_NAME = "_userName";
         public static final String TIMER_LENGTH = "_timerLength";
         public static final String LIKES = "_likes";
     }

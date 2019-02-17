@@ -46,7 +46,7 @@ public class MainActivity extends FragmentActivity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
-        flBlocker = (FrameLayout) findViewById(R.id.flBlocker);
+        flBlocker = findViewById(R.id.flBlocker);
 
         database = new Database(this);
         connectionHelper = new ConnectionHelper(this);

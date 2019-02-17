@@ -99,8 +99,15 @@ public class HomeFragment extends Fragment {
 //    }
 
     private void setupDiscoverItems() {
-        //todo
+        items.add(new WriteNewItem(getResources().getString(R.string.home_fragment_create_new), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //todo
+            }
+        }));
+
         if (((MainActivity) getActivity()).getConnectionHelper().isNetworkAvailable()) {
+
             ((MainActivity) getActivity()).showBlocker();
 
             final int userId = ((MainActivity) getActivity()).getCurrentUser().getId();
@@ -170,7 +177,7 @@ public class HomeFragment extends Fragment {
                 WriteNewViewHolder wHolder = (WriteNewViewHolder) holder;
                 WriteNewItem item = (WriteNewItem) items.get(position);
 
-                wHolder.title.setText(item.buttonTitle);
+                wHolder.title.setText(item.getButtonTitle());
 
             } else if (viewType == TYPE_RECIPE_CARD) {
                 final RecipeCardViewHolder rHolder = (RecipeCardViewHolder) holder;
@@ -178,7 +185,7 @@ public class HomeFragment extends Fragment {
 
                 rHolder.recipeTitle.setText(item.getRecipe().getRecipeTitle());
                 rHolder.recipeDescription.setText(item.getRecipe().getRecipeDescription());
-                rHolder.displayName.setText("User Name Here"); //todo get user display name with recipe
+                rHolder.displayName.setText(item.getRecipe().getUserName());
 
 
             } else if (viewType == TYPE_FILTER_SELECTION) {
@@ -207,6 +214,8 @@ public class HomeFragment extends Fragment {
 
         public WriteNewViewHolder(View itemView) {
             super(itemView);
+
+            title = (TextView) itemView.findViewById(R.id.tvWriteNew);
         }
     }
 
@@ -219,6 +228,10 @@ public class HomeFragment extends Fragment {
         public WriteNewItem(String buttonTitle, View.OnClickListener onClickListener) {
             this.buttonTitle = buttonTitle;
             this.onClickListener = onClickListener;
+        }
+
+        public String getButtonTitle() {
+            return buttonTitle;
         }
 
         @Override
