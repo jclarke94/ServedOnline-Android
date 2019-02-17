@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import com.google.gson.Gson;
 import com.servedonline.servedonline_android.Entity.User;
 import com.servedonline.servedonline_android.Network.JSON.BaseResponse;
+import com.servedonline.servedonline_android.Network.JSON.RecipeResponse;
 import com.servedonline.servedonline_android.Network.JSON.UserResponse;
 
 import java.io.File;
@@ -77,6 +78,12 @@ public class ConnectionHelper {
                 .build();
 
         return performBasicNetworking(url, body, UserResponse.class);
+    }
+
+    public RecipeResponse getRecipes(int userId) {
+        String url = BASE_URL + "/Recipe/getRecipes";
+        //todo add userId form to specify which recipes to get back
+        return performBasicNetworking(url, null, RecipeResponse.class);
     }
 
     /**

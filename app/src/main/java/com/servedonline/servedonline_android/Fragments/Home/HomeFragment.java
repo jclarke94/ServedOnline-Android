@@ -2,8 +2,10 @@ package com.servedonline.servedonline_android.Fragments.Home;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcel;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.servedonline.servedonline_android.Entity.Recipe;
 import com.servedonline.servedonline_android.Listitem;
+import com.servedonline.servedonline_android.MainActivity;
+import com.servedonline.servedonline_android.Network.JSON.RecipeResponse;
 import com.servedonline.servedonline_android.R;
 
 import java.util.ArrayList;
@@ -30,6 +34,8 @@ public class HomeFragment extends Fragment {
     public static final int TYPE_RECIPE_CARD = 1;
     public static final int TYPE_FILTER_SELECTION = 2;
 
+    private Handler handler;
+
 
     private RecyclerView rvFeed;
     private GridLayoutManager layoutManager;
@@ -43,6 +49,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
+        handler = new Handler();
+
         rvFeed = (RecyclerView) v.findViewById(R.id.rvHomeFeed);
 
         if (savedInstanceState != null) {
@@ -54,8 +62,8 @@ public class HomeFragment extends Fragment {
         rvFeed.setAdapter(adapter);
         rvFeed.setLayoutManager(layoutManager);
 
-
-
+//        setupTopButtons();
+        setupDiscoverItems();
         return v;
     }
 
@@ -73,24 +81,65 @@ public class HomeFragment extends Fragment {
         outState.putParcelableArrayList(ARG_ITEMS, items);
     }
 
-    private void setupTopButtons() {
-        items.add(new FilterItem(getString(R.string.home_fragment_tab_discover), getString(R.string.home_fragment_tab_foodies), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //todo change recyclerView items to reflect foodies items.
-                setupFoodiesItems();
-            }
-        }, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //todo change recyclerView items to reflect discover items.
-                setupDiscoverItems();
-            }
-        }));
-    }
+//    private void setupTopButtons() {
+//        items.add(new FilterItem(getString(R.string.home_fragment_tab_discover), getString(R.string.home_fragment_tab_foodies), new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //todo change recyclerView items to reflect foodies items.
+////                setupFoodiesItems();
+//                setupDiscoverItems();
+//            }
+//        }, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //todo change recyclerView items to reflect discover items.
+//                setupDiscoverItems();
+//            }
+//        }));
+//    }
 
     private void setupDiscoverItems() {
         //todo
+        if (((MainActivity) getActivity()).getConnectionHelper().isNetworkAvailable()) {
+            ((MainActivity) getActivity()).showBlocker();
+
+            final int userId = ((MainActivity) getActivity()).getCurrentUser().getId();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    final RecipeResponse response = ((MainActivity) getActivity()).getConnectionHelper().getRecipes(userId);
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((MainActivity) getActivity()).hideBlocker();
+
+                            if (response != null) {
+                                if (response.isSuccess()) {
+                                    for (Recipe recipe : response.getData()) {
+                                        items.add(new RecipeCardItem(recipe));
+                                        Log.d(BACKSTACK_TAG, "response data size = " + response.getData().length);
+                                    }
+
+                                    adapter.notifyDataSetChanged();
+                                } else {
+                                    //todo error message
+                                    Log.d(BACKSTACK_TAG, "not successful");
+                                }
+                            } else {
+                                //todo error message
+                                Log.d(BACKSTACK_TAG, "response = null");
+                            }
+                        }
+                    });
+                }
+            }).start();
+        } else {
+            //todo error message
+            Log.d(BACKSTACK_TAG, "no internet");
+        }
+
     }
 
     private void setupFoodiesItems() {
@@ -124,29 +173,14 @@ public class HomeFragment extends Fragment {
                 wHolder.title.setText(item.buttonTitle);
 
             } else if (viewType == TYPE_RECIPE_CARD) {
-//                final RecipeCardViewHolder rHolder = (RecipeCardViewHolder) holder;
-//                final RecipeCardItem item = (RecipeCardItem) items.get(position);
-//
-//                rHolder.recipeTitle.setText(item.getRecipe().getRecipeName());
-//                rHolder.recipeDescription.setText(item.getRecipe().getRecipeDescription());
-//                rHolder.displayName.setText(item.getRecipe().getRecipeName());
-//                if (item.getRecipe().getYum() == 0) {
-//                    rHolder.yum.setText(R.string.recipe_card_yum);
-//                    rHolder.yum.setTextColor(getResources().getColor(R.color.colorGrey));
-//                } else {
-//                    rHolder.yum.setText(R.string.recipe_card_yummy);
-//                    rHolder.yum.setTextColor(getResources().getColor(R.color.colorBlue));
-//                }
-//                rHolder.yum.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        if (item.getRecipe().getYum() == 0) {
-//                            item.getRecipe().setYum(1);
-//                        } else {
-//                            item.getRecipe().setYum(0);
-//                        }
-//                    }
-//                });
+                final RecipeCardViewHolder rHolder = (RecipeCardViewHolder) holder;
+                final RecipeCardItem item = (RecipeCardItem) items.get(position);
+
+                rHolder.recipeTitle.setText(item.getRecipe().getRecipeTitle());
+                rHolder.recipeDescription.setText(item.getRecipe().getRecipeDescription());
+                rHolder.displayName.setText("User Name Here"); //todo get user display name with recipe
+
+
             } else if (viewType == TYPE_FILTER_SELECTION) {
                 FilterViewHolder fHolder = (FilterViewHolder) holder;
                 FilterItem item = (FilterItem) items.get(position);
@@ -154,6 +188,11 @@ public class HomeFragment extends Fragment {
                 fHolder.tvDiscoverTitle.setText(item.getTvDiscover());
                 fHolder.tvFoodiesTitle.setText(item.getTvFoodies());
             }
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return items.get(position).getViewType();
         }
 
         @Override

@@ -97,6 +97,10 @@ public class MainActivity extends FragmentActivity {
         this.currentUser = currentUser;
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
     public void showBlocker() {
         flBlocker.setVisibility(View.VISIBLE);
     }

@@ -81,8 +81,8 @@ public class LoginFragment extends Fragment {
                 @Override
                 public void run() {
                     final UserResponse response = ((MainActivity) getActivity()).getConnectionHelper().loginUser(
-                            String.valueOf(etEmail.getText()), String.valueOf(etPassword.getText())
-                    );
+                            String.valueOf(etEmail.getText()), String.valueOf(etPassword.getText()));
+
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
