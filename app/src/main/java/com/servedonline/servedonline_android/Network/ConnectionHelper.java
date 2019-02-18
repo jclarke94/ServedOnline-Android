@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import com.google.gson.Gson;
 import com.servedonline.servedonline_android.Entity.User;
 import com.servedonline.servedonline_android.Network.JSON.BaseResponse;
+import com.servedonline.servedonline_android.Network.JSON.CreateRecipeResponse;
 import com.servedonline.servedonline_android.Network.JSON.RecipeResponse;
 import com.servedonline.servedonline_android.Network.JSON.UserResponse;
 
@@ -84,6 +85,33 @@ public class ConnectionHelper {
         String url = BASE_URL + "/Recipe/getRecipes";
         //todo add userId form to specify which recipes to get back
         return performBasicNetworking(url, null, RecipeResponse.class);
+    }
+
+    public CreateRecipeResponse createNewRecipe(int userId, String recipeTitle, String recipeDescription, int timerLength) {
+        String url = BASE_URL + "/Recipe/createRecipe";
+
+        FormBody body = new FormBody.Builder()
+                .add("userId", String.valueOf(userId))
+                .add("recipeTitle", recipeTitle)
+                .add("recipeDescription", recipeDescription)
+                .add("timerLength", String.valueOf(timerLength))
+                .build();
+
+        return performBasicNetworking(url, body, CreateRecipeResponse.class);
+    }
+
+    public CreateRecipeResponse createNewRecipeStep(int recipeId, String stepDescription, int stepNumber, int finalStep, int timer) {
+        String url = BASE_URL + "/RecipeSteps/createStep";
+
+        FormBody body = new FormBody.Builder()
+                .add("recipeId", String.valueOf(recipeId))
+                .add("stepDescription", stepDescription)
+                .add("stepNumber", String.valueOf(stepNumber))
+                .add("finalStep", String.valueOf(finalStep))
+                .add("timer", String.valueOf(timer))
+                .build();
+
+        return performBasicNetworking(url, body, CreateRecipeResponse.class);
     }
 
     /**
