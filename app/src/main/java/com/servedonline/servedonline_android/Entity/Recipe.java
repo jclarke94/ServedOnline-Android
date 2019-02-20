@@ -31,6 +31,16 @@ public class Recipe extends DatabaseGoverned implements Parcelable {
         this.recipeComments = recipeComments;
     }
 
+    public Recipe(int id, String displayName, String recipeDescription, String userName, int userId, long timerLength, int likes) {
+        this.id = id;
+        this.recipeTitle = displayName;
+        this.recipeDescription = recipeDescription;
+        this.userName = userName;
+        this.userId = userId;
+        this.timerLength = timerLength;
+        this.likes = likes;
+    }
+
     public Recipe(Parcel in) {
 
         id = in.readInt();
@@ -76,6 +86,10 @@ public class Recipe extends DatabaseGoverned implements Parcelable {
     }
 
     public int getId() { return id; }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getRecipeTitle() {
         return recipeTitle;

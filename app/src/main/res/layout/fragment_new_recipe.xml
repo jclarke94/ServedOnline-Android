@@ -9,9 +9,9 @@
 
     <include layout="@layout/include_topbar"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -66,6 +66,7 @@
                 android:textColor="@color/colorGreyDark"
                 android:layout_marginRight="@dimen/padding_medium"
                 android:layout_marginLeft="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -90,46 +91,44 @@
                     android:layout_height="wrap_content" />
             </FrameLayout>
 
+            <!--<TextView-->
+                <!--android:layout_marginTop="@dimen/padding_xlarge"-->
+                <!--android:textStyle="bold"-->
+                <!--android:text="@string/new_recipe_ingredients"-->
+                <!--android:textSize="@dimen/text_large"-->
+                <!--android:textColor="@color/colorGreyDark"-->
+                <!--android:layout_marginRight="@dimen/padding_medium"-->
+                <!--android:layout_marginLeft="@dimen/padding_medium"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
 
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:layout_marginStart="@dimen/padding_medium"-->
+                <!--android:layout_marginEnd="@dimen/padding_medium"-->
+                <!--android:id="@+id/rvIngredients"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"/>-->
 
-            <TextView
-                android:layout_marginTop="@dimen/padding_xlarge"
-                android:textStyle="bold"
-                android:text="@string/new_recipe_ingredients"
-                android:textSize="@dimen/text_large"
-                android:textColor="@color/colorGreyDark"
-                android:layout_marginRight="@dimen/padding_medium"
-                android:layout_marginLeft="@dimen/padding_medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_marginStart="@dimen/padding_medium"
-                android:layout_marginEnd="@dimen/padding_medium"
-                android:id="@+id/rvIngredients"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <FrameLayout
-                android:paddingBottom="@dimen/padding_small"
-                android:paddingRight="@dimen/padding_small"
-                android:paddingLeft="@dimen/padding_small"
-                android:paddingTop="@dimen/padding_small"
-                android:layout_marginLeft="@dimen/padding_medium"
-                android:layout_marginRight="@dimen/padding_medium"
-                android:background="@drawable/bg_edittext_border"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/etIngredients"
-                    android:gravity="top"
-                    android:backgroundTint="@color/colorWhite"
-                    android:textSize="@dimen/text_medium"
-                    android:hint="@string/new_recipe_search"
-                    android:minLines="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </FrameLayout>
+            <!--<FrameLayout-->
+                <!--android:paddingBottom="@dimen/padding_small"-->
+                <!--android:paddingRight="@dimen/padding_small"-->
+                <!--android:paddingLeft="@dimen/padding_small"-->
+                <!--android:paddingTop="@dimen/padding_small"-->
+                <!--android:layout_marginLeft="@dimen/padding_medium"-->
+                <!--android:layout_marginRight="@dimen/padding_medium"-->
+                <!--android:background="@drawable/bg_edittext_border"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<EditText-->
+                    <!--android:id="@+id/etIngredients"-->
+                    <!--android:gravity="top"-->
+                    <!--android:backgroundTint="@color/colorWhite"-->
+                    <!--android:textSize="@dimen/text_medium"-->
+                    <!--android:hint="@string/new_recipe_search"-->
+                    <!--android:minLines="1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+            <!--</FrameLayout>-->
 
             <Button
                 android:id="@+id/btnNewRecipeNext"
@@ -146,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-    </ScrollView>
+    <!--</ScrollView>-->
 
 
 

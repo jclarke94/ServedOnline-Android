@@ -17,6 +17,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.servedonline.servedonline_android.Entity.Recipe;
+import com.servedonline.servedonline_android.Fragments.NewRecipe.NewRecipeFragment;
 import com.servedonline.servedonline_android.Listitem;
 import com.servedonline.servedonline_android.MainActivity;
 import com.servedonline.servedonline_android.Network.JSON.RecipeResponse;
@@ -102,7 +103,8 @@ public class HomeFragment extends Fragment {
         items.add(new WriteNewItem(getResources().getString(R.string.home_fragment_create_new), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo
+                NewRecipeFragment fragment = new NewRecipeFragment();
+                ((MainActivity) getActivity()).navigate(fragment, BACKSTACK_TAG);
             }
         }));
 

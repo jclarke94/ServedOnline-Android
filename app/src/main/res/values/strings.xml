@@ -36,6 +36,10 @@
     <string name="new_recipe_next">NEXT</string>
 
     <string name="creating_steps_description_hint">Write some instructions for your recipe...</string>
+    <string name="creating_steps_ingredients_title">Ingredients used in step:</string>
+    <string name="creating_steps_ingredients_btn">Add Ingredient</string>
+    <string name="creating_steps_finish_steps">Complete Recipe</string>
+    <string name="creating_steps_add_step">Add Step</string>
 
     <string name="recipe_card_yum">Yum</string>
     <string name="recipe_card_yummy">Yummy</string>
