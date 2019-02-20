@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     public static final int TYPE_WRITE_NEW = 0;
     public static final int TYPE_RECIPE_CARD = 1;
     public static final int TYPE_FILTER_SELECTION = 2;
+    public static final int TYPE_LOADING = 3;
 
     private Handler handler;
 
@@ -107,10 +108,9 @@ public class HomeFragment extends Fragment {
                 ((MainActivity) getActivity()).navigate(fragment, BACKSTACK_TAG);
             }
         }));
+        items.add(new LoadingItem());
 
         if (((MainActivity) getActivity()).getConnectionHelper().isNetworkAvailable()) {
-
-            ((MainActivity) getActivity()).showBlocker();
 
             final int userId = ((MainActivity) getActivity()).getCurrentUser().getId();
 
@@ -122,10 +122,14 @@ public class HomeFragment extends Fragment {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            ((MainActivity) getActivity()).hideBlocker();
 
                             if (response != null) {
                                 if (response.isSuccess()) {
+                                    int position = items.size() - 1;
+                                    if (items.get(position).getViewType() == TYPE_LOADING) {
+                                        items.remove(position);
+                                    }
+
                                     for (Recipe recipe : response.getData()) {
                                         items.add(new RecipeCardItem(recipe));
                                         Log.d(BACKSTACK_TAG, "response data size = " + response.getData().length);
@@ -165,9 +169,12 @@ public class HomeFragment extends Fragment {
             } else if (viewType == TYPE_RECIPE_CARD) {
                 View v = getActivity().getLayoutInflater().inflate(R.layout.listitem_recipe_card, parent, false);
                 return new RecipeCardViewHolder(v);
-            } else {
+            } else if (viewType == TYPE_FILTER_SELECTION){
                 View v = getActivity().getLayoutInflater().inflate(R.layout.listitem_filter, parent, false);
                 return new FilterViewHolder(v);
+            } else {
+                View v = getActivity().getLayoutInflater().inflate(R.layout.listitem_generic_loading, parent, false);
+                return new LoadingViewHolder(v);
             }
         }
 
@@ -180,6 +187,8 @@ public class HomeFragment extends Fragment {
                 WriteNewItem item = (WriteNewItem) items.get(position);
 
                 wHolder.title.setText(item.getButtonTitle());
+
+                wHolder.llWriteNew.setOnClickListener(item.getOnClickListener());
 
             } else if (viewType == TYPE_RECIPE_CARD) {
                 final RecipeCardViewHolder rHolder = (RecipeCardViewHolder) holder;
@@ -217,6 +226,7 @@ public class HomeFragment extends Fragment {
         public WriteNewViewHolder(View itemView) {
             super(itemView);
 
+            llWriteNew = (LinearLayout) itemView.findViewById(R.id.llWriteNew);
             title = (TextView) itemView.findViewById(R.id.tvWriteNew);
         }
     }
@@ -234,6 +244,10 @@ public class HomeFragment extends Fragment {
 
         public String getButtonTitle() {
             return buttonTitle;
+        }
+
+        public View.OnClickListener getOnClickListener() {
+            return onClickListener;
         }
 
         @Override
@@ -348,6 +362,30 @@ public class HomeFragment extends Fragment {
         @Override
         public void writeToParcel(Parcel parcel, int i) {
 
+        }
+    }
+
+    @SuppressLint("ParcelCreator")
+    private class LoadingItem extends Listitem {
+        @Override
+        public int getViewType() {
+            return TYPE_LOADING;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+
+        }
+    }
+
+    private class LoadingViewHolder extends RecyclerView.ViewHolder {
+        public LoadingViewHolder(View itemView) {
+            super(itemView);
         }
     }
 }
