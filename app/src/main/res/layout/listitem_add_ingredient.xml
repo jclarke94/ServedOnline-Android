@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:minHeight="@dimen/minimum_touch_area"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_edittext_border"
+    android:padding="@dimen/padding_small">
+
+    <EditText
+        android:id="@+id/etAddIngredient"
+        android:textSize="@dimen/text_medium"
+        android:hint="@string/creating_steps_ingredients_btn"
+        android:textColor="@color/colorPrimary"
+        android:backgroundTint="@color/colorWhite"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/minimum_touch_area" />
+
+    <ImageButton
+        android:id="@+id/btnAddIngredient"
+        android:layout_marginRight="@dimen/padding_medium"
+        android:elevation="@dimen/padding_small"
+        android:layout_width="@dimen/minimum_touch_area"
+        android:layout_height="@dimen/minimum_touch_area"
+        android:background="@null"
+        android:src="@drawable/ic_add_24dp" />
+
+</LinearLayout>

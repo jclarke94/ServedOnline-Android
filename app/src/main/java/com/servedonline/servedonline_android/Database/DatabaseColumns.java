@@ -64,4 +64,9 @@ public class DatabaseColumns {
         public static final String DATE_SELECTED = "_dateSelected";
     }
 
+    public static class Ingredients {
+        public static final String RECIPE_ID = "_recipeId";
+        public static final String INGREDIENT = "_ingredient";
+    }
+
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llIngredient"
+    android:elevation="@dimen/padding_medium"
+    android:background="@drawable/bg_orange_button"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/minimum_touch_area">
+
+    <TextView
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="@dimen/padding_small"
+        android:textSize="@dimen/text_medium"
+        android:textColor="@color/colorWhite"
+        android:text="test"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/minimum_touch_area" />
+
+    <ImageButton
+        android:src="@drawable/ic_delete"
+        android:layout_marginRight="@dimen/padding_medium"
+        android:background="@null"
+        android:layout_width="@dimen/minimum_touch_area"
+        android:layout_height="@dimen/minimum_touch_area"/>
+
+</LinearLayout>

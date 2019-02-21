@@ -10,4 +10,5 @@ public class DatabaseTables {
     public static final String FAVOURITES = "_favourites";
     public static final String RECIPE_COMMENTS = "_recipeComments";
     public static final String MEAL_TIME_SELECTION = "_mealTimeSelection";
+    public static final String INGREDIENTS = "_ingredients";
 }

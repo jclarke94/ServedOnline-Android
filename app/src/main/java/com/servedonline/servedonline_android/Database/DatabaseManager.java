@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseManager extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "served.db";
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
 
 
     public DatabaseManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -22,8 +22,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        if (oldVersion < 2) {
+            runV2Additions(sqLiteDatabase);
+        }
     }
 
     private void initialiseDatabase(SQLiteDatabase db) {
@@ -103,6 +105,15 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(createMealTimeSelection);
 
+    }
+
+    private void runV2Additions(SQLiteDatabase db) {
+        String createIngredients = "CREATE TABLE " + DatabaseTables.INGREDIENTS + " ("
+                + DatabaseColumns.ID + " INTEGER PRIMARY KEY NOT NULL,"
+                + DatabaseColumns.Ingredients.RECIPE_ID + " INTEGER NOT NULL,"
+                + DatabaseColumns.Ingredients.INGREDIENT + " TEXT NOT NULL"
+                + ")";
+        db.execSQL(createIngredients);
     }
 
 }

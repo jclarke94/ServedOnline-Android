@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.servedonline.servedonline_android.Entity.Recipe;
@@ -90,12 +92,28 @@ public class CreatingStepsFragment extends Fragment {
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return null;
+            if (viewType == TYPE_ADD) {
+                View v = getActivity().getLayoutInflater().inflate(R.layout.listitem_add_ingredient, parent, false);
+                return new AddViewHolder(v);
+            } else {
+                View v = getActivity().getLayoutInflater().inflate(R.layout.listitem_ingredient, parent, false);
+                return new IngredientViewHolder(v);
+            }
+
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            int viewType = items.get(position).getViewType();
 
+            if (viewType == TYPE_ADD) {
+                AddViewHolder aHolder = (AddViewHolder) holder;
+                AddItem item = (AddItem) items.get(position);
+
+
+            } else if (viewType == TYPE_INGREDIENT) {
+
+            }
         }
 
         @Override
@@ -107,7 +125,7 @@ public class CreatingStepsFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 0;
+            return items.size();
         }
     }
 
@@ -132,13 +150,21 @@ public class CreatingStepsFragment extends Fragment {
 
     private class AddViewHolder extends RecyclerView.ViewHolder {
 
+        public EditText etAddIngredient;
+        public ImageButton btnAddIngredient;
+
         public AddViewHolder(View itemView) {
             super(itemView);
+
+            etAddIngredient = itemView.findViewById(R.id.etAddIngredient);
+            btnAddIngredient = itemView.findViewById(R.id.btnAddIngredient);
         }
     }
 
     @SuppressLint("ParcelCreator")
     private class IngredientItem extends Listitem {
+
+
 
         @Override
         public int getViewType() {
@@ -158,8 +184,11 @@ public class CreatingStepsFragment extends Fragment {
 
     private class IngredientViewHolder extends RecyclerView.ViewHolder{
 
+        public LinearLayout llIngredient;
+
         public IngredientViewHolder(View itemView) {
             super(itemView);
+            llIngredient = itemView.findViewById(R.id.llIngredient);
         }
     }
 
