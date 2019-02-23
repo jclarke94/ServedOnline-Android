@@ -9,12 +9,13 @@ import com.servedonline.servedonline_android.Database.DatabaseGoverned;
 import com.servedonline.servedonline_android.Database.DatabaseTables;
 
 public class Ingredient extends DatabaseGoverned implements Parcelable {
-    private int id, recipeId;
+    private int id, recipeId, stepNumber;
     private String ingredient;
 
-    public Ingredient(int id, int recipeId, String ingredient) {
+    public Ingredient(int id, int recipeId, int stepNumber, String ingredient) {
         this.id = id;
         this.recipeId = recipeId;
+        this.stepNumber = stepNumber;
         this.ingredient = ingredient;
     }
 
@@ -34,6 +35,14 @@ public class Ingredient extends DatabaseGoverned implements Parcelable {
         this.recipeId = recipeId;
     }
 
+    public int getStepNumber() {
+        return stepNumber;
+    }
+
+    public void setStepNumber(int stepNumber) {
+        this.stepNumber = stepNumber;
+    }
+
     public String getIngredient() {
         return ingredient;
     }
@@ -41,6 +50,7 @@ public class Ingredient extends DatabaseGoverned implements Parcelable {
     protected Ingredient(Parcel in) {
         id = in.readInt();
         recipeId = in.readInt();
+        stepNumber = in.readInt();
         ingredient = in.readString();
     }
 
@@ -65,6 +75,7 @@ public class Ingredient extends DatabaseGoverned implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeInt(recipeId);
+        parcel.writeInt(stepNumber);
         parcel.writeString(ingredient);
     }
 
@@ -83,6 +94,7 @@ public class Ingredient extends DatabaseGoverned implements Parcelable {
         ContentValues out = new ContentValues();
         out.put(DatabaseColumns.ID, id);
         out.put(DatabaseColumns.Ingredients.RECIPE_ID, recipeId);
+        out.put(DatabaseColumns.Ingredients.STEP_NUMBER, stepNumber);
         out.put(DatabaseColumns.Ingredients.INGREDIENT, ingredient);
         return out;
     }

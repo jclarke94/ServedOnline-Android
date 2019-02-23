@@ -10,6 +10,7 @@
     android:minHeight="@dimen/minimum_touch_area">
 
     <TextView
+        android:id="@+id/tvIngredient"
         android:textStyle="bold"
         android:gravity="center"
         android:padding="@dimen/padding_small"

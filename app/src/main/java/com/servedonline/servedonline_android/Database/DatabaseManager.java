@@ -111,6 +111,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String createIngredients = "CREATE TABLE " + DatabaseTables.INGREDIENTS + " ("
                 + DatabaseColumns.ID + " INTEGER PRIMARY KEY NOT NULL,"
                 + DatabaseColumns.Ingredients.RECIPE_ID + " INTEGER NOT NULL,"
+                + DatabaseColumns.Ingredients.STEP_NUMBER + " INTEGER NOT NULL,"
                 + DatabaseColumns.Ingredients.INGREDIENT + " TEXT NOT NULL"
                 + ")";
         db.execSQL(createIngredients);
