@@ -74,7 +74,8 @@ public class NewRecipeFragment extends Fragment {
 
         Bundle args = new Bundle();
         CreatingStepsFragment fragment = new CreatingStepsFragment();
-        args.putParcelable(RECIPE_KEY, recipe);
+        args.putParcelable(CreatingStepsFragment.RECIPE_KEY, recipe);
+        args.putInt(CreatingStepsFragment.STEP_NUMBER_KEY, 1);
 
         fragment.setArguments(args);
         ((MainActivity) getActivity()).navigate(fragment, BACKSTACK_TAG);

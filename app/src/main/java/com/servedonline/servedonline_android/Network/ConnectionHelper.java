@@ -12,7 +12,7 @@ import android.support.annotation.Nullable;
 import com.google.gson.Gson;
 import com.servedonline.servedonline_android.Entity.User;
 import com.servedonline.servedonline_android.Network.JSON.BaseResponse;
-import com.servedonline.servedonline_android.Network.JSON.CreateRecipeResponse;
+import com.servedonline.servedonline_android.Network.JSON.IDResponse;
 import com.servedonline.servedonline_android.Network.JSON.RecipeResponse;
 import com.servedonline.servedonline_android.Network.JSON.UserResponse;
 
@@ -87,7 +87,7 @@ public class ConnectionHelper {
         return performBasicNetworking(url, null, RecipeResponse.class);
     }
 
-    public CreateRecipeResponse createNewRecipe(int userId, String recipeTitle, String recipeDescription, int timerLength) {
+    public IDResponse createNewRecipe(int userId, String recipeTitle, String recipeDescription, int timerLength) {
         String url = BASE_URL + "/Recipe/createRecipe";
 
         FormBody body = new FormBody.Builder()
@@ -97,10 +97,10 @@ public class ConnectionHelper {
                 .add("timerLength", String.valueOf(timerLength))
                 .build();
 
-        return performBasicNetworking(url, body, CreateRecipeResponse.class);
+        return performBasicNetworking(url, body, IDResponse.class);
     }
 
-    public CreateRecipeResponse createNewRecipeStep(int recipeId, String stepDescription, int stepNumber, int finalStep, int timer) {
+    public IDResponse createNewRecipeStep(int recipeId, String stepDescription, int stepNumber, int finalStep, int timer) {
         String url = BASE_URL + "/RecipeSteps/createStep";
 
         FormBody body = new FormBody.Builder()
@@ -111,7 +111,19 @@ public class ConnectionHelper {
                 .add("timer", String.valueOf(timer))
                 .build();
 
-        return performBasicNetworking(url, body, CreateRecipeResponse.class);
+        return performBasicNetworking(url, body, IDResponse.class);
+    }
+
+    public IDResponse createRecipeIngredient(int recipeId, int stepNumber, String ingredient) {
+        String url = BASE_URL + "/RecipeIngredient/createIngredient";
+
+        FormBody body = new FormBody.Builder()
+                .add("recipeId", String.valueOf(recipeId))
+                .add("stepNumber", String.valueOf(stepNumber))
+                .add("ingredient", ingredient)
+                .build();
+
+        return performBasicNetworking(url, body, IDResponse.class);
     }
 
     /**

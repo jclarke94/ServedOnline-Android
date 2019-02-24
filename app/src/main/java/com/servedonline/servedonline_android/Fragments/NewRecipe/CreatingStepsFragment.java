@@ -1,6 +1,7 @@
 package com.servedonline.servedonline_android.Fragments.NewRecipe;
 
 import android.annotation.SuppressLint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
@@ -49,6 +50,8 @@ public class CreatingStepsFragment extends Fragment {
     private Recipe recipe;
     private int stepNo;
 
+    private int paddingMedium = 0;
+
     private ArrayList<RecipeSteps> steps = new ArrayList<>();
     private ArrayList<Listitem> items = new ArrayList<>();
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
@@ -86,12 +89,15 @@ public class CreatingStepsFragment extends Fragment {
             ingredients = savedInstanceState.getParcelableArrayList(INGREDIENTS_KEY);
         }
 
+        paddingMedium = (int) getResources().getDimension(R.dimen.padding_medium);
+
         tvStep.setText("Step " + stepNo);
 
         layoutManager = new GridLayoutManager(getContext(), 2);
         adapter = new IngredientsAdapter();
         rvIngredients.setLayoutManager(layoutManager);
         rvIngredients.setAdapter(adapter);
+        rvIngredients.addItemDecoration(new IngredientsDecoration());
 
         setupIngredients();
 
@@ -109,9 +115,16 @@ public class CreatingStepsFragment extends Fragment {
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo 
+                if (checkFieldsCompleted()) {
+                    saveFinalStep();
+                } else {
+                    Toast.makeText(getContext(), "Complete the description", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        v.setAlpha(0f);
+        v.animate().setStartDelay(100).setDuration(200).alpha(1f);
 
         return v;
     }
@@ -135,6 +148,33 @@ public class CreatingStepsFragment extends Fragment {
         }
     }
 
+    private void saveFinalStep() {
+
+        for (Listitem listitem : items) {
+            if (listitem.getViewType() == TYPE_INGREDIENT) {
+                IngredientItem item = (IngredientItem) listitem;
+                ingredients.add(new Ingredient(0, 0, stepNo, item.getIngredient()));
+            }
+        }
+
+        String desc = String.valueOf(etDesc.getText());
+        RecipeSteps step = new RecipeSteps(0, 0, stepNo, 1, 0, desc);
+        steps.add(step);
+
+        send();
+    }
+
+    private void send() {
+        Bundle args = new Bundle();
+        args.putParcelable(SendNewRecipeFragment.RECIPE_KEY, recipe);
+        args.putParcelableArrayList(SendNewRecipeFragment.RECIPE_STEPS_KEY, steps);
+        args.putParcelableArrayList(SendNewRecipeFragment.INGREDIENTS_KEY, ingredients);
+
+        SendNewRecipeFragment fragment = new SendNewRecipeFragment();
+        fragment.setArguments(args);
+        ((MainActivity) getActivity()).navigate(fragment, BACKSTACK_TAG);
+    }
+
     private void saveStep() {
         for (Listitem listitem : items) {
             if (listitem.getViewType() == TYPE_INGREDIENT) {
@@ -142,6 +182,10 @@ public class CreatingStepsFragment extends Fragment {
                 ingredients.add(new Ingredient(0, 0, stepNo, item.getIngredient()));
             }
         }
+
+        String desc = String.valueOf(etDesc.getText());
+        RecipeSteps step = new RecipeSteps(0, 0, stepNo, 0, 0, desc);
+        steps.add(step);
 
         createNewStep();
     }
@@ -200,6 +244,7 @@ public class CreatingStepsFragment extends Fragment {
                     public void onClick(View view) {
                         addIngredient(String.valueOf(aHolder.etAddIngredient.getText()));
 
+                        aHolder.etAddIngredient.getText().clear();
                     }
                 });
 
@@ -309,6 +354,22 @@ public class CreatingStepsFragment extends Fragment {
             super(itemView);
             llIngredient = itemView.findViewById(R.id.llIngredient);
             tvIngredient = itemView.findViewById(R.id.tvIngredient);
+        }
+    }
+
+    private class IngredientsDecoration extends RecyclerView.ItemDecoration {
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+
+            int viewType = parent.getLayoutManager().getItemViewType(view);
+
+            if (viewType == TYPE_INGREDIENT || viewType == TYPE_ADD) {
+                outRect.top = paddingMedium;
+                outRect.bottom = paddingMedium;
+                outRect.left = paddingMedium;
+                outRect.right = paddingMedium;
+            }
         }
     }
 

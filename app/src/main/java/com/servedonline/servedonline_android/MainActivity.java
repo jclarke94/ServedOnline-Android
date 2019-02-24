@@ -4,8 +4,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -117,6 +120,40 @@ public class MainActivity extends FragmentActivity {
         }
 
         fragmentTransaction.commit();
+    }
+
+    /**
+     * Removes Fragments in the Stack until we reach the desired Backstack tag
+     * @param backUntilTag          Backstack Tag to pop backstack until
+     */
+    public void voidBackstack(@Nullable String backUntilTag) {
+        boolean hasBackstackEntry = false;
+        for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++) {
+            if (getSupportFragmentManager().getBackStackEntryAt(i).getName().equals(backUntilTag)) {
+                hasBackstackEntry = true;
+                break;
+            }
+        }
+
+        if (!hasBackstackEntry) {
+            backUntilTag = null;
+        }
+        getSupportFragmentManager().popBackStackImmediate(backUntilTag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    /**
+     * Convenience method for moving back through the app backstack hierarchy and immediately presenting a new screen afterwards
+     *
+     * Much safer than trying to do this in a Fragment instance itself as this all occurs within something that's not as volatile
+     *
+     * @param backUntilTag      Backstack tag to reverse transactions until
+     * @param fragment          Fragment to navigate to after backstack void
+     * @param backstackTag      Backstack tag to give to the new Fragment transaction
+     */
+    public void voidBackstackAndNavigate(@Nullable String backUntilTag, @NonNull Fragment fragment, @Nullable String backstackTag) {
+        voidBackstack(backUntilTag);
+
+        navigate(fragment, backstackTag);
     }
 
     public Database getDatabase() {

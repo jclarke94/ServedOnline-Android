@@ -1,6 +1,6 @@
 package com.servedonline.servedonline_android.Network.JSON;
 
-public class CreateRecipeResponse extends BaseResponse {
+public class IDResponse extends BaseResponse {
 
     private int data;
 

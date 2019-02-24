@@ -44,4 +44,7 @@
     <string name="recipe_card_yum">Yum</string>
     <string name="recipe_card_yummy">Yummy</string>
 
+    <string name="send_new_recipe_sending">Sending...</string>
+    <string name="complete_recipe">Sent</string>
+
 </resources>

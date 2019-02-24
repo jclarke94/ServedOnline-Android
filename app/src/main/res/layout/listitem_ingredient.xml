@@ -14,7 +14,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:padding="@dimen/padding_small"
-        android:textSize="@dimen/text_medium"
+        android:textSize="@dimen/text_small"
         android:textColor="@color/colorWhite"
         android:text="test"
         android:layout_weight="1"

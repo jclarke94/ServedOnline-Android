@@ -10,7 +10,7 @@
 
     <EditText
         android:id="@+id/etAddIngredient"
-        android:textSize="@dimen/text_medium"
+        android:textSize="@dimen/text_small"
         android:hint="@string/creating_steps_ingredients_btn"
         android:textColor="@color/colorPrimary"
         android:backgroundTint="@color/colorWhite"
