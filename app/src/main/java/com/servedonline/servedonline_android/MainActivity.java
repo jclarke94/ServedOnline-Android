@@ -112,6 +112,10 @@ public class MainActivity extends FragmentActivity {
         flBlocker.setVisibility(View.GONE);
     }
 
+    public void clearFocus() {
+        getCurrentFocus().clearFocus();
+    }
+
     public void navigate(Fragment fragment, String backstackTag) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);

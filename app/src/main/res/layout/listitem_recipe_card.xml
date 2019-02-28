@@ -81,21 +81,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <TextView
-                android:id="@+id/tvRecipeYum"
-                android:textColor="@color/colorGrey"
-                android:text="Yum"
-                android:gravity="right"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!--<TextView-->
+                <!--android:id="@+id/tvRecipeYum"-->
+                <!--android:textColor="@color/colorGrey"-->
+                <!--android:text="Yum"-->
+                <!--android:gravity="right"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
     </LinearLayout>
 
 </LinearLayout>

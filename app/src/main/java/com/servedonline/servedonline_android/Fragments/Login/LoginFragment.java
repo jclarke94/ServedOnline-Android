@@ -96,6 +96,7 @@ public class LoginFragment extends Fragment {
                                             //todo save id to shared preference in MainActivity
                                             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
                                             sp.edit().putInt(MainActivity.LOGIN_ID, response.getData().getId()).apply();
+                                            ((MainActivity) getActivity()).setCurrentUser(response.getData());
 
                                             passToHome();
                                         }

@@ -17,7 +17,7 @@ import com.servedonline.servedonline_android.R;
 
 import static com.servedonline.servedonline_android.MainActivity.LOGIN_ID;
 
-public class completeFragment extends Fragment {
+public class CompleteFragment extends Fragment {
 
     private Handler handler;
 

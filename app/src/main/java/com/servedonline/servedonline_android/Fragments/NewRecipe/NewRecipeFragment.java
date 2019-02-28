@@ -1,9 +1,11 @@
 package com.servedonline.servedonline_android.Fragments.NewRecipe;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,14 @@ import android.widget.Toast;
 import com.servedonline.servedonline_android.Entity.Recipe;
 import com.servedonline.servedonline_android.Entity.User;
 import com.servedonline.servedonline_android.MainActivity;
+import com.servedonline.servedonline_android.Network.JSON.IDResponse;
 import com.servedonline.servedonline_android.R;
 
 public class NewRecipeFragment extends Fragment {
 
-    public static final String RECIPE_KEY = "_recipe";
     public static final String BACKSTACK_TAG = "_newRecipeFragment";
+
+    private Handler handler;
 
     private EditText etTitle, etDescription;
     private Button btNext;
@@ -31,6 +35,8 @@ public class NewRecipeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_new_recipe, container, false);
 
+        handler = new Handler();
+
         etTitle = (EditText) v.findViewById(R.id.etTitle);
         etDescription = (EditText) v.findViewById(R.id.etDescription);
         btNext = (Button) v.findViewById(R.id.btnNewRecipeNext);
@@ -40,6 +46,7 @@ public class NewRecipeFragment extends Fragment {
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((MainActivity) getActivity()).clearFocus();
                 checkFieldsCompleted();
             }
         });
@@ -61,22 +68,47 @@ public class NewRecipeFragment extends Fragment {
         }
 
         if (completed) {
-            progressToSteps(title, desc);
+            sendRecipe(title, desc);
         } else {
             Toast.makeText(getContext(), "Please complete fields before progressing", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void progressToSteps(String title, String desc) {
-        User user = ((MainActivity) getActivity()).getCurrentUser();
+    private void sendRecipe(final String title, final String desc) {
 
-        Recipe recipe = new Recipe(0, title, desc, user.getDisplayName(), user.getId(), 0, 0);
+        ((MainActivity) getActivity()).showBlocker();
+        if (((MainActivity) getActivity()).getConnectionHelper().isNetworkAvailable()) {
+            final User user = ((MainActivity) getActivity()).getCurrentUser();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    final IDResponse response = ((MainActivity) getActivity()).getConnectionHelper().createNewRecipe(user.getId(), title, desc, 0);
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (response != null) {
+                                if (response.isSuccess()) {
+                                    Log.d("send", "recipe response Id = " + response.getData());
+                                    ((MainActivity) getActivity()).hideBlocker();
+                                    progressToSteps(response.getData());
+                                }
+                            }
+                        }
+                    });
+                }
+            }).start();
+        }
+
+    }
+
+    private void progressToSteps(int recipeId) {
 
         Bundle args = new Bundle();
         CreatingStepsFragment fragment = new CreatingStepsFragment();
-        args.putParcelable(CreatingStepsFragment.RECIPE_KEY, recipe);
+        args.putInt(CreatingStepsFragment.RECIPE_KEY, recipeId);
         args.putInt(CreatingStepsFragment.STEP_NUMBER_KEY, 1);
-
         fragment.setArguments(args);
         ((MainActivity) getActivity()).navigate(fragment, BACKSTACK_TAG);
     }

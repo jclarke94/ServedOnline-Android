@@ -8,8 +8,11 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.util.ArrayMap;
 
 import com.google.gson.Gson;
+import com.servedonline.servedonline_android.Entity.Ingredient;
+import com.servedonline.servedonline_android.Entity.RecipeSteps;
 import com.servedonline.servedonline_android.Entity.User;
 import com.servedonline.servedonline_android.Network.JSON.BaseResponse;
 import com.servedonline.servedonline_android.Network.JSON.IDResponse;
@@ -19,6 +22,7 @@ import com.servedonline.servedonline_android.Network.JSON.UserResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -58,7 +62,7 @@ public class ConnectionHelper {
     }
 
     public UserResponse createUser(User user) {
-        String url = BASE_URL + "/User/createUser";
+        String url = BASE_URL + "User/createUser";
 
         FormBody body = new FormBody.Builder()
                 .add("firstName", user.getFirstName())
@@ -71,7 +75,7 @@ public class ConnectionHelper {
     }
 
     public UserResponse loginUser(String email, String password) {
-        String url = BASE_URL + "/User/getUser";
+        String url = BASE_URL + "User/getUser";
 
         FormBody body = new FormBody.Builder()
                 .add("email", email)
@@ -82,13 +86,13 @@ public class ConnectionHelper {
     }
 
     public RecipeResponse getRecipes(int userId) {
-        String url = BASE_URL + "/Recipe/getRecipes";
+        String url = BASE_URL + "Recipe/getRecipes";
         //todo add userId form to specify which recipes to get back
         return performBasicNetworking(url, null, RecipeResponse.class);
     }
 
     public IDResponse createNewRecipe(int userId, String recipeTitle, String recipeDescription, int timerLength) {
-        String url = BASE_URL + "/Recipe/createRecipe";
+        String url = BASE_URL + "Recipe/createRecipe";
 
         FormBody body = new FormBody.Builder()
                 .add("userId", String.valueOf(userId))
@@ -100,22 +104,59 @@ public class ConnectionHelper {
         return performBasicNetworking(url, body, IDResponse.class);
     }
 
+    public IDResponse createStep(RecipeSteps step, ArrayList<Ingredient> ingredients) {
+        String url = BASE_URL + "RecipeSteps/createStep";
+
+        ArrayList<ArrayMap<String, String>> data = new ArrayList<>();
+        for (Ingredient ingredient : ingredients) {
+            ArrayMap<String, String> item = new ArrayMap<>();
+
+            item.put("recipeId", String.valueOf(ingredient.getRecipeId()));
+            item.put("stepNumber", String.valueOf(ingredient.getStepNumber()));
+            item.put("ingredient", ingredient.getIngredient());
+
+            data.add(item);
+        }
+
+        FormBody body = new FormBody.Builder()
+                .add("recipeId", String.valueOf(step.getRecipeId()))
+                .add("stepDescription", step.getStepDescription())
+                .add("stepNumber", String.valueOf(step.getStepNumber()))
+                .add("finalStep", String.valueOf(step.getFinalStep()))
+                .add("timer", String.valueOf(step.getTimer()))
+                .add("data", gson.toJson(data))
+                .build();
+
+        return performBasicNetworking(url, body, IDResponse.class);
+    }
+
     public IDResponse createNewRecipeStep(int recipeId, String stepDescription, int stepNumber, int finalStep, int timer) {
-        String url = BASE_URL + "/RecipeSteps/createStep";
+        String url = BASE_URL + "RecipeSteps/createStep";
 
         FormBody body = new FormBody.Builder()
                 .add("recipeId", String.valueOf(recipeId))
                 .add("stepDescription", stepDescription)
                 .add("stepNumber", String.valueOf(stepNumber))
                 .add("finalStep", String.valueOf(finalStep))
-                .add("timer", String.valueOf(timer))
                 .build();
 
         return performBasicNetworking(url, body, IDResponse.class);
     }
 
+    public BaseResponse deleteRecipeStep(int id) {
+
+        String url = BASE_URL + "RecipeSteps/removeStep";
+
+        FormBody body = new FormBody.Builder()
+                .add("id", String.valueOf(id))
+                .build();
+
+        return performBasicNetworking(url, body, BaseResponse.class);
+
+    }
+
     public IDResponse createRecipeIngredient(int recipeId, int stepNumber, String ingredient) {
-        String url = BASE_URL + "/RecipeIngredient/createIngredient";
+        String url = BASE_URL + "RecipeIngredients/createIngredient";
 
         FormBody body = new FormBody.Builder()
                 .add("recipeId", String.valueOf(recipeId))
@@ -124,6 +165,16 @@ public class ConnectionHelper {
                 .build();
 
         return performBasicNetworking(url, body, IDResponse.class);
+    }
+
+    public BaseResponse deleteIngredient(int id) {
+        String url = BASE_URL + "RecipeIngredients/removeIngredient";
+
+        FormBody body = new FormBody.Builder()
+                .add("id", String.valueOf(id))
+                .build();
+
+        return performBasicNetworking(url, body, BaseResponse.class);
     }
 
     /**

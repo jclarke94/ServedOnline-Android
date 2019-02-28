@@ -19,9 +19,9 @@ public class Recipe extends DatabaseGoverned implements Parcelable {
     private RecipeSteps[] recipeSteps;
     private RecipeComments[] recipeComments;
 
-    public Recipe(int id, String displayName, String recipeDescription, String userName,int userId, long timerLength, int likes, RecipeSteps[] recipeSteps, RecipeComments[] recipeComments) {
+    public Recipe(int id, String recipeTitle, String recipeDescription, String userName,int userId, long timerLength, int likes, RecipeSteps[] recipeSteps, RecipeComments[] recipeComments) {
         this.id = id;
-        this.recipeTitle = displayName;
+        this.recipeTitle = recipeTitle;
         this.recipeDescription = recipeDescription;
         this.userName = userName;
         this.userId = userId;

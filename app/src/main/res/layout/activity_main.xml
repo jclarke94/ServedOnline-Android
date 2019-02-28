@@ -12,7 +12,7 @@
         android:id="@+id/flBlocker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black_transparent"
+        android:background="@color/white_transparent"
         android:visibility="gone"
         android:clickable="true">
 

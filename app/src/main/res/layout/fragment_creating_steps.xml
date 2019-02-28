@@ -7,101 +7,113 @@
 
     <include layout="@layout/include_topbar"/>
 
-    <TextView
-        android:id="@+id/tvStepsTitle"
-        android:layout_marginBottom="@dimen/text_medium"
-        android:layout_marginTop="@dimen/text_medium"
-        android:textSize="@dimen/text_heading"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:gravity="center"
-        android:text="Step 1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <FrameLayout
-        android:paddingBottom="@dimen/padding_medium"
-        android:paddingRight="@dimen/padding_small"
-        android:paddingLeft="@dimen/padding_small"
-        android:paddingTop="@dimen/padding_medium"
-        android:layout_marginLeft="@dimen/padding_medium"
-        android:layout_marginRight="@dimen/padding_medium"
-        android:background="@drawable/bg_edittext_border"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/etDescription"
-            android:gravity="top"
-            android:backgroundTint="@color/colorWhite"
-            android:textSize="@dimen/text_medium"
-            android:hint="@string/creating_steps_description_hint"
-            android:minLines="4"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
-
-    <TextView
-        android:textColor="@color/colorPrimary"
-        android:text="@string/creating_steps_ingredients_title"
-        android:textSize="@dimen/text_large"
-        android:layout_margin="@dimen/padding_medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvIngredients"
-        android:layout_marginRight="@dimen/padding_medium"
-        android:layout_marginLeft="@dimen/padding_medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-
-    <LinearLayout
-        android:layout_marginTop="@dimen/padding_medium"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <FrameLayout
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/btnAddStep"
-                android:layout_gravity="center"
-                android:paddingLeft="@dimen/padding_xxlarge"
-                android:paddingRight="@dimen/padding_xxlarge"
-                android:textSize="@dimen/text_medium"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvStepsTitle"
+                android:layout_marginBottom="@dimen/text_medium"
+                android:layout_marginTop="@dimen/text_medium"
+                android:textSize="@dimen/text_heading"
                 android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:elevation="@dimen/elevation_level"
-                android:background="@drawable/bg_orange_button"
-                android:text="@string/creating_steps_add_step"
-                android:minHeight="@dimen/minimum_touch_area"
-                android:layout_width="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"
+                android:text="Step 1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </FrameLayout>
 
-        <FrameLayout
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/btnCompleteSteps"
-                android:layout_gravity="center"
-                android:paddingLeft="@dimen/padding_medium"
-                android:paddingRight="@dimen/padding_medium"
-                android:textSize="@dimen/text_medium"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:elevation="@dimen/elevation_level"
-                android:background="@drawable/bg_orange_button"
-                android:text="@string/creating_steps_finish_steps"
-                android:minHeight="@dimen/minimum_touch_area"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:paddingBottom="@dimen/padding_medium"
+                android:paddingRight="@dimen/padding_small"
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingTop="@dimen/padding_medium"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:background="@drawable/bg_edittext_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/etDescription"
+                    android:gravity="top"
+                    android:backgroundTint="@color/colorWhite"
+                    android:textSize="@dimen/text_medium"
+                    android:hint="@string/creating_steps_description_hint"
+                    android:minLines="4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <TextView
+                android:textColor="@color/colorPrimary"
+                android:text="@string/creating_steps_ingredients_title"
+                android:textSize="@dimen/text_large"
+                android:layout_margin="@dimen/padding_medium"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </FrameLayout>
 
-    </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvIngredients"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
+
+            <LinearLayout
+                android:gravity="bottom"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <FrameLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <Button
+                        android:id="@+id/btnAddStep"
+                        android:layout_gravity="center"
+                        android:paddingLeft="@dimen/padding_xxlarge"
+                        android:paddingRight="@dimen/padding_xxlarge"
+                        android:textSize="@dimen/text_medium"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"
+                        android:elevation="@dimen/elevation_level"
+                        android:background="@drawable/bg_orange_button"
+                        android:text="@string/creating_steps_add_step"
+                        android:minHeight="@dimen/minimum_touch_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <Button
+                        android:id="@+id/btnCompleteSteps"
+                        android:layout_gravity="center"
+                        android:paddingLeft="@dimen/padding_medium"
+                        android:paddingRight="@dimen/padding_medium"
+                        android:textSize="@dimen/text_medium"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorWhite"
+                        android:elevation="@dimen/elevation_level"
+                        android:background="@drawable/bg_orange_button"
+                        android:text="@string/creating_steps_finish_steps"
+                        android:minHeight="@dimen/minimum_touch_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

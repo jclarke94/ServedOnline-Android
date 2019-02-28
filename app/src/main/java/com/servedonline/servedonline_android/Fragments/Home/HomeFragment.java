@@ -277,7 +277,7 @@ public class HomeFragment extends Fragment {
             recipeTitle = (TextView) itemView.findViewById(R.id.tvRecipeName);
             displayName = (TextView) itemView.findViewById(R.id.tvDisplayName);
             recipeDescription = (TextView) itemView.findViewById(R.id.tvRecipeDescription);
-            yum = (TextView) itemView.findViewById(R.id.tvRecipeYum);
+//            yum = (TextView) itemView.findViewById(R.id.tvRecipeYum);
             ivProfilePic = (ImageView) itemView.findViewById(R.id.ivUserPic);
             ivRecipePic = (ImageView) itemView.findViewById(R.id.ivRecipePic);
         }
