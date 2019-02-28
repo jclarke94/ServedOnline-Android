@@ -12,6 +12,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/llUserSection"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -52,9 +53,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/llRecipeSection"
         android:padding="@dimen/padding_medium"
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView

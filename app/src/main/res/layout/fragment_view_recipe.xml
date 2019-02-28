@@ -1,9 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    
+    <include layout="@layout/include_topbar"/>
+
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/llUserTitle"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:scaleType="fitCenter"
+                    android:layout_marginStart="@dimen/padding_medium"
+                    android:layout_marginTop="@dimen/padding_medium"
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/ivUserPic"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:layout_marginRight="@dimen/padding_medium"
+                    android:layout_marginLeft="@dimen/padding_medium"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:id="@+id/tvDisplayName"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_large"
+                        android:text="Joel Clarke"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <FrameLayout
+                        android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"></FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvRecipeTitle"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/padding_large"
+                android:textColor="@color/colorBlack"
+                android:text="Recipe Title"
+                android:textSize="@dimen/text_subheading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvRecipeDescription"
+                android:text="Filler text Filler text Filler text Filler text Filler text"
+                android:textSize="@dimen/text_medium"
+                android:layout_marginRight="@dimen/padding_large"
+                android:layout_marginLeft="@dimen/padding_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textColor="@color/colorPrimary"
+                android:layout_margin="@dimen/padding_large"
+                android:textStyle="bold"
+                android:textSize="@dimen/padding_large"
+                android:text="@string/view_recipe_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_marginBottom="@dimen/padding_large"
+        android:gravity="bottom"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_margin="@dimen/padding_large"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/btnSaveRecipe"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:elevation="@dimen/elevation_level"
+                android:background="@drawable/bg_orange_button"
+                android:text="@string/view_recipe_save"
+                android:minHeight="@dimen/minimum_touch_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_margin="@dimen/padding_large"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:elevation="@dimen/elevation_level"
+                android:background="@drawable/bg_orange_button"
+                android:text="@string/view_recipe_start_recipe"
+                android:minHeight="@dimen/minimum_touch_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>

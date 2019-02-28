@@ -22,6 +22,7 @@ import com.servedonline.servedonline_android.Listitem;
 import com.servedonline.servedonline_android.MainActivity;
 import com.servedonline.servedonline_android.Network.JSON.RecipeResponse;
 import com.servedonline.servedonline_android.R;
+import com.servedonline.servedonline_android.ViewRecipe.ViewRecipeFragment;
 
 import java.util.ArrayList;
 
@@ -198,6 +199,18 @@ public class HomeFragment extends Fragment {
                 rHolder.recipeDescription.setText(item.getRecipe().getRecipeDescription());
                 rHolder.displayName.setText(item.getRecipe().getUserName());
 
+                rHolder.llRecipeSection.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle args = new Bundle();
+                        args.putParcelable(ViewRecipeFragment.RECIPE_KEY, item.getRecipe());
+
+                        ViewRecipeFragment fragment = new ViewRecipeFragment();
+                        fragment.setArguments(args);
+                        ((MainActivity) getActivity()).navigate(fragment, BACKSTACK_TAG);
+                    }
+                });
+
 
             } else if (viewType == TYPE_FILTER_SELECTION) {
                 FilterViewHolder fHolder = (FilterViewHolder) holder;
@@ -269,6 +282,7 @@ public class HomeFragment extends Fragment {
     public class RecipeCardViewHolder extends RecyclerView.ViewHolder {
         public TextView recipeTitle, displayName, recipeDescription, yum;
         public ImageView ivProfilePic, ivRecipePic;
+        public LinearLayout llUserSection, llRecipeSection;
 
 
         public RecipeCardViewHolder(View itemView) {
@@ -280,6 +294,8 @@ public class HomeFragment extends Fragment {
 //            yum = (TextView) itemView.findViewById(R.id.tvRecipeYum);
             ivProfilePic = (ImageView) itemView.findViewById(R.id.ivUserPic);
             ivRecipePic = (ImageView) itemView.findViewById(R.id.ivRecipePic);
+            llRecipeSection = itemView.findViewById(R.id.llRecipeSection);
+            llUserSection = itemView.findViewById(R.id.llUserSection);
         }
     }
 
