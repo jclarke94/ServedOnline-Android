@@ -86,6 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
+                    android:inputType="textEmailAddress"
                     android:id="@+id/etEmail"
                     android:hint="@string/signing_up_email"
                     android:backgroundTint="@color/colorWhite"
@@ -104,6 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
+                    android:inputType="textEmailAddress"
                     android:id="@+id/etConfirmEmail"
                     android:hint="@string/signing_up_confirm_email"
                     android:backgroundTint="@color/colorWhite"
@@ -122,6 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
+                    android:inputType="textPassword"
                     android:id="@+id/etPassword"
                     android:hint="@string/signing_up_password"
                     android:backgroundTint="@color/colorWhite"
@@ -141,6 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
+                    android:inputType="textPassword"
                     android:id="@+id/etConfirmPassword"
                     android:hint="@string/signing_up_confirm_password"
                     android:backgroundTint="@color/colorWhite"
