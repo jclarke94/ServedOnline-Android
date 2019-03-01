@@ -18,12 +18,15 @@ import android.widget.Toast;
 
 import com.servedonline.servedonline_android.Entity.Ingredient;
 import com.servedonline.servedonline_android.Entity.Recipe;
+import com.servedonline.servedonline_android.Entity.RecipeSteps;
 import com.servedonline.servedonline_android.Listitem;
 import com.servedonline.servedonline_android.MainActivity;
 import com.servedonline.servedonline_android.Network.JSON.IngredientsListResponse;
+import com.servedonline.servedonline_android.Network.JSON.RecipeStepsResponse;
 import com.servedonline.servedonline_android.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ViewRecipeFragment extends Fragment {
 
@@ -42,6 +45,7 @@ public class ViewRecipeFragment extends Fragment {
     private Ingredient[] ingredients;
 
     private Handler handler;
+    private Handler stepsHandler;
 
     private IngredientsAdapter adapter;
     private GridLayoutManager layoutManager;
@@ -64,6 +68,7 @@ public class ViewRecipeFragment extends Fragment {
         rvIngredients = v.findViewById(R.id.rvIngredients);
 
         handler = new Handler();
+        stepsHandler = new Handler();
 
         if (getArguments() != null) {
             recipe = getArguments().getParcelable(RECIPE_KEY);
@@ -97,7 +102,9 @@ public class ViewRecipeFragment extends Fragment {
             }
         });
 
-        getIngredientsList();
+        if (items.size() == 0) {
+            getIngredientsList();
+        }
 
         return v;
     }
@@ -113,17 +120,53 @@ public class ViewRecipeFragment extends Fragment {
 
         //todo activate Alexa
 
+
+        getSteps();
     }
 
-    private void passToSteps() {
+    private void passToSteps(RecipeSteps[] steps) {
+        ArrayList<RecipeSteps> stepsList = new ArrayList<>(Arrays.asList(steps));
+        ArrayList<Ingredient> ingredientsList = new ArrayList<Ingredient>(Arrays.asList(ingredients));
 
+        ((MainActivity) getActivity()).hideBlocker();
+
+        Bundle args = new Bundle();
+        args.putInt(ViewStepsFragment.STEP_NUMBER_KEY, 1);
+        args.putParcelableArrayList(ViewStepsFragment.INGREDIENTS_KEY, ingredientsList);
+        args.putParcelableArrayList(ViewStepsFragment.RECIPE_STEP_KEY, stepsList);
+
+        ViewStepsFragment fragment = new ViewStepsFragment();
+        fragment.setArguments(args);
+        ((MainActivity) getActivity()).navigate(fragment, BACKSTACK_TAG);
+    }
+
+    private void getSteps() {
+        if (((MainActivity) getActivity()).getConnectionHelper().isNetworkAvailable()) {
+            ((MainActivity) getActivity()).showBlocker();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    final RecipeStepsResponse response = ((MainActivity) getActivity()).getConnectionHelper().getRecipeSteps(recipe.getId());
+
+                    stepsHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (response != null) {
+                                if (response.isSuccess()) {
+                                    passToSteps(response.getData());
+                                }
+                            }
+                        }
+                    });
+                }
+            }).start();
+        }
     }
 
     private void getIngredientsList() {
-        if (items.size() == 0) {
-            items.add(new LoadingItem());
-            adapter.notifyDataSetChanged();
-        }
+        items.add(new LoadingItem());
+        adapter.notifyDataSetChanged();
 
         if (((MainActivity) getActivity()).getConnectionHelper().isNetworkAvailable()) {
             new Thread(new Runnable() {
@@ -175,6 +218,8 @@ public class ViewRecipeFragment extends Fragment {
             if (viewType == TYPE_INGREDIENT) {
                 IngredientsItem  item = (IngredientsItem) items.get(position);
                 IngredientViewHolder iHolder = (IngredientViewHolder) holder;
+
+                iHolder.tvIngredient.setText(item.getIngredient().getIngredient());
 
             } else if (viewType == TYPE_LOADING) {
                 LoadingItem item = (LoadingItem) items.get(position);

@@ -18,6 +18,7 @@ import com.servedonline.servedonline_android.Network.JSON.BaseResponse;
 import com.servedonline.servedonline_android.Network.JSON.IDResponse;
 import com.servedonline.servedonline_android.Network.JSON.IngredientsListResponse;
 import com.servedonline.servedonline_android.Network.JSON.RecipeResponse;
+import com.servedonline.servedonline_android.Network.JSON.RecipeStepsResponse;
 import com.servedonline.servedonline_android.Network.JSON.UserResponse;
 
 import java.io.File;
@@ -142,6 +143,16 @@ public class ConnectionHelper {
                 .build();
 
         return performBasicNetworking(url, body, IDResponse.class);
+    }
+
+    public RecipeStepsResponse getRecipeSteps(int recipeId) {
+        String url = BASE_URL + "RecipeSteps/getRecipeSteps";
+
+        FormBody body = new FormBody.Builder()
+                .add("recipeId", String.valueOf(recipeId))
+                .build();
+
+        return performBasicNetworking(url, body, RecipeStepsResponse.class);
     }
 
     public BaseResponse deleteRecipeStep(int id) {

@@ -52,4 +52,9 @@
     <string name="view_recipe_bulletpoint">\u2022</string>
     <string name="view_recipe_ingredients">Ingredients List:</string>
 
+    <string name="view_steps_ingredients">Ingredients For This Step:</string>
+    <string name="view_steps_cancel">Cancel</string>
+    <string name="view_steps_next">Next Step</string>
+    <string name="view_steps_finish">Finish</string>
+
 </resources>
