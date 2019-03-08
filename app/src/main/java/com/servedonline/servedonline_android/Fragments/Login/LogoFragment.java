@@ -33,7 +33,7 @@ public class LogoFragment extends Fragment {
         handler = new Handler();
 
         int loginId = ((MainActivity) getActivity()).sp.getInt(LOGIN_ID, 0);
-        if (loginId != 0) {
+        if (loginId > 0) {
 
             ((MainActivity) getActivity()).getDatabase().getUser(loginId, new DatabaseThread.OnDatabaseRequestComplete<User>() {
                 @Override

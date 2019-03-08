@@ -54,7 +54,6 @@ public class MainActivity extends FragmentActivity {
         database = new Database(this);
         connectionHelper = new ConnectionHelper(this);
 
-
         if (findViewById(R.id.fragment_container) != null) {
 
             if (savedInstanceState != null) {

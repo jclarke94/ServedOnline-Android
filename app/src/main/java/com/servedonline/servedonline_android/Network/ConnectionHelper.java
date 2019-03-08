@@ -36,7 +36,7 @@ import okhttp3.Response;
 
 public class ConnectionHelper {
 
-    private final static String BASE_URL = "http://www.servedonline-app.com/";
+    private final static String BASE_URL = "https://www.servedonline-app.com/";
 
     private Context context;
     private Handler mainThreadHandler;
