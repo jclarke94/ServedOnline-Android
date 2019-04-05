@@ -1,7 +1,9 @@
 package com.servedonline.servedonline_android.Fragments.Login;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +57,7 @@ public class SignUpFragment extends Fragment {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("Evaluation", "create user button pressed = " + System.currentTimeMillis());
                 checkFieldsCompleted();
             }
         });
@@ -135,14 +138,26 @@ public class SignUpFragment extends Fragment {
                         public void run() {
                             if (response != null) {
                                 if (response.isSuccess()) {
-                                    ((MainActivity) getActivity()).getDatabase().insert(response.getData(), new DatabaseThread.OnDatabaseRequestComplete() {
-                                        @Override
-                                        public void onRequestComplete(Object returnValue) {
-                                            ((MainActivity) getActivity()).hideBlocker();
+//                                    ((MainActivity) getActivity()).getDatabase().insert(response.getData(), new DatabaseThread.OnDatabaseRequestComplete() {
+//                                        @Override
+//                                        public void onRequestComplete(Object returnValue) {
+//
+//
+//                                            ((MainActivity) getActivity()).hideBlocker();
+//
+//                                            passToHome();
+//                                        }
+//                                    });
 
-                                            passToHome();
-                                        }
-                                    });
+                                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+                                    sp.edit().putInt(MainActivity.LOGIN_ID, response.getData().getId()).apply();
+                                    ((MainActivity) getActivity()).setCurrentUser(response.getData());
+
+                                    ((MainActivity) getActivity()).hideBlocker();
+
+                                    Log.d("Evaluation", "create user response complete = " + System.currentTimeMillis());
+
+                                    passToHome();
 
                                 }
                             }

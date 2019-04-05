@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ public class LoginFragment extends Fragment {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("Evaluation", "log in button pressed = " + System.currentTimeMillis());
                 checkFieldsCompleted();
             }
         });
@@ -97,6 +99,8 @@ public class LoginFragment extends Fragment {
                                             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
                                             sp.edit().putInt(MainActivity.LOGIN_ID, response.getData().getId()).apply();
                                             ((MainActivity) getActivity()).setCurrentUser(response.getData());
+
+                                            Log.d("Evaluation", "log in response = " + System.currentTimeMillis());
 
                                             passToHome();
                                         }

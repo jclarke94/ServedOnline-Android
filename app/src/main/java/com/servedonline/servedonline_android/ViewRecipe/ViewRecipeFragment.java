@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,11 +99,13 @@ public class ViewRecipeFragment extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("Evaluation", "get steps button pressed = " + System.currentTimeMillis());
                 sendStartToken();
             }
         });
 
         if (items.size() == 0) {
+            Log.d("Evaluation", "get ingredients called = " + System.currentTimeMillis());
             getIngredientsList();
         }
 
@@ -154,6 +157,7 @@ public class ViewRecipeFragment extends Fragment {
                         public void run() {
                             if (response != null) {
                                 if (response.isSuccess()) {
+                                    Log.d("Evaluation", "get recipe steps response = " + System.currentTimeMillis());
                                     passToSteps(response.getData());
                                 }
                             }
@@ -188,6 +192,7 @@ public class ViewRecipeFragment extends Fragment {
                                     }
 
                                     adapter.notifyDataSetChanged();
+                                    Log.d("Evaluation", "get ingredients response = " + System.currentTimeMillis());
                                 }
                             }
                         }

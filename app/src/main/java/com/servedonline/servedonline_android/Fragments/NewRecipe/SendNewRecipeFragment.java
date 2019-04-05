@@ -138,6 +138,8 @@ public class SendNewRecipeFragment extends Fragment {
                             if (response != null) {
                                 if (!response.isSuccess()) {
                                     Log.d("send", "Step not successful");
+
+
                                     newRetryCounter++;
                                 } else {
                                     Log.d("send", "step successful. step ID = " + response.getData());

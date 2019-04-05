@@ -47,6 +47,8 @@ public class NewRecipeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ((MainActivity) getActivity()).clearFocus();
+
+                Log.d("Evaluation", "create recipe button pressed = " + System.currentTimeMillis());
                 checkFieldsCompleted();
             }
         });
@@ -92,6 +94,8 @@ public class NewRecipeFragment extends Fragment {
                                 if (response.isSuccess()) {
                                     Log.d("send", "recipe response Id = " + response.getData());
                                     ((MainActivity) getActivity()).hideBlocker();
+
+                                    Log.d("Evaluation", "create new recipe response = " + System.currentTimeMillis());
                                     progressToSteps(response.getData());
                                 }
                             }

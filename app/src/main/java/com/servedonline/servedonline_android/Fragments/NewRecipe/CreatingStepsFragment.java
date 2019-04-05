@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,6 +116,8 @@ public class CreatingStepsFragment extends Fragment {
             public void onClick(View view) {
                 ((MainActivity) getActivity()).clearFocus();
 
+                Log.d("Evaluation", "create step button pressed = " + System.currentTimeMillis());
+
                 if (checkFieldsCompleted()) {
 //                    saveStep();
                     sendStep(String.valueOf(etDesc.getText()), 0);
@@ -128,6 +131,8 @@ public class CreatingStepsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ((MainActivity) getActivity()).clearFocus();
+
+                Log.d("Evaluation", "create step button pressed = " + System.currentTimeMillis());
 
                 if (checkFieldsCompleted()) {
 //                    saveFinalStep();
@@ -240,6 +245,8 @@ public class CreatingStepsFragment extends Fragment {
                                if (response.isSuccess()) {
                                    ((MainActivity) getActivity()).hideBlocker();
 
+                                   Log.d("Evaluation", "create step response = " + System.currentTimeMillis());
+
                                    if (complete == 1) {
                                        finish();
                                    } else {
@@ -272,6 +279,8 @@ public class CreatingStepsFragment extends Fragment {
 
                                     items.add(0, new IngredientItem(new Ingredient(response.getData(), recipeId, stepNo, ingredient.getIngredient())));
                                     adapter.notifyItemChanged(0);
+
+                                    Log.d("Evaluation", "create ingredient response = " + System.currentTimeMillis());
                                 }
                             }
                         }
@@ -367,6 +376,7 @@ public class CreatingStepsFragment extends Fragment {
                     public void onClick(View view) {
                         Ingredient ing = new Ingredient(0, recipeId, stepNo,String.valueOf(aHolder.etAddIngredient.getText()));
 
+                        Log.d("Evaluation", "create ingredient button pressed = " + System.currentTimeMillis());
                         addIngredient(ing);
 
                         aHolder.etAddIngredient.getText().clear();

@@ -32,29 +32,29 @@ public class LogoFragment extends Fragment {
 
         handler = new Handler();
 
-        int loginId = ((MainActivity) getActivity()).sp.getInt(LOGIN_ID, 0);
-        if (loginId > 0) {
-
-            ((MainActivity) getActivity()).getDatabase().getUser(loginId, new DatabaseThread.OnDatabaseRequestComplete<User>() {
-                @Override
-                public void onRequestComplete(final User returnValue) {
-
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((MainActivity) getActivity()).setCurrentUser(returnValue);
-
-                            HomeFragment homeFragment = new HomeFragment();
-
-                            ((MainActivity) getActivity()).navigate(homeFragment, BACKSTACK_TAG);
-                        }
-                    }, 2000);
-
-                }
-            });
-
-
-        } else {
+//        int loginId = ((MainActivity) getActivity()).sp.getInt(LOGIN_ID, 0);
+//        if (loginId > 0) {
+//
+//            ((MainActivity) getActivity()).getDatabase().getUser(loginId, new DatabaseThread.OnDatabaseRequestComplete<User>() {
+//                @Override
+//                public void onRequestComplete(final User returnValue) {
+//
+//                    handler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            ((MainActivity) getActivity()).setCurrentUser(returnValue);
+//
+//                            HomeFragment homeFragment = new HomeFragment();
+//
+//                            ((MainActivity) getActivity()).navigate(homeFragment, BACKSTACK_TAG);
+//                        }
+//                    }, 2000);
+//
+//                }
+//            });
+//
+//
+//        } else {
 
             handler.postDelayed(new Runnable() {
                 @Override
@@ -65,7 +65,7 @@ public class LogoFragment extends Fragment {
                 }
             }, 2000);
 
-        }
+//        }
 
         return v;
     }

@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment {
         rvFeed.setLayoutManager(layoutManager);
 
 //        setupTopButtons();
+        Log.d("Evaluation", "getting recipes = " + System.currentTimeMillis());
         setupDiscoverItems();
         return v;
     }
@@ -137,6 +138,8 @@ public class HomeFragment extends Fragment {
                                     }
 
                                     adapter.notifyDataSetChanged();
+
+                                    Log.d("Evaluation", "get recipes response = " + System.currentTimeMillis());
                                 } else {
                                     //todo error message
                                     Log.d(BACKSTACK_TAG, "not successful");
