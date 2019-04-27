@@ -35,6 +35,8 @@ public class NewRecipeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_new_recipe, container, false);
 
+        ((MainActivity) getActivity()).showTopbar();
+
         handler = new Handler();
 
         etTitle = (EditText) v.findViewById(R.id.etTitle);

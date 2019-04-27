@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/include_topbar"/>
 
     <android.support.v7.widget.RecyclerView
         android:elevation="@dimen/padding_medium"

@@ -52,6 +52,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
+        ((MainActivity) getActivity()).showTopbar();
+
         handler = new Handler();
 
         rvFeed = (RecyclerView) v.findViewById(R.id.rvHomeFeed);

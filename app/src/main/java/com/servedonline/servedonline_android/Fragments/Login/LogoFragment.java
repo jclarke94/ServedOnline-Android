@@ -30,6 +30,8 @@ public class LogoFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_logo, container, false);
 
+        ((MainActivity) getActivity()).hideTopbar();
+
         handler = new Handler();
 
 //        int loginId = ((MainActivity) getActivity()).sp.getInt(LOGIN_ID, 0);

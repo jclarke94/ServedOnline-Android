@@ -35,6 +35,8 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
+        ((MainActivity) getActivity()).hideTopbar();
+
         tvHeading = (TextView) v.findViewById(R.id.tvServedTitle);
         tvTitle = (TextView) v.findViewById(R.id.tvLoginTitle);
         tvSignUp = (TextView) v.findViewById(R.id.tvSignUp);

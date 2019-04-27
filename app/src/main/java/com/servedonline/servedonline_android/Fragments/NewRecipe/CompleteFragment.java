@@ -27,6 +27,8 @@ public class CompleteFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_complete, container, false);
 
+        ((MainActivity) getActivity()).hideTopbar();
+
         handler = new Handler();
 
         handler.postDelayed(new Runnable() {

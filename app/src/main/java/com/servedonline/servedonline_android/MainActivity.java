@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.servedonline.servedonline_android.Database.Database;
 import com.servedonline.servedonline_android.Database.DatabaseThread;
@@ -33,6 +34,7 @@ public class MainActivity extends FragmentActivity {
 
     private ImageView navBar;
     private FrameLayout flBlocker;
+    private LinearLayout llTopbar;
 
     private boolean allowBackPress = true;
 
@@ -50,6 +52,7 @@ public class MainActivity extends FragmentActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         flBlocker = findViewById(R.id.flBlocker);
+        llTopbar = findViewById(R.id.llTopbar);
 
         database = new Database(this);
         connectionHelper = new ConnectionHelper(this);
@@ -114,6 +117,10 @@ public class MainActivity extends FragmentActivity {
     public void clearFocus() {
         getCurrentFocus().clearFocus();
     }
+
+    public void showTopbar() { llTopbar.setVisibility(View.VISIBLE); }
+
+    public void hideTopbar() { llTopbar.setVisibility(View.GONE); }
 
     public void navigate(Fragment fragment, String backstackTag) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

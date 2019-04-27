@@ -69,6 +69,8 @@ public class CreatingStepsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_creating_steps, container, false);
 
+        ((MainActivity) getActivity()).showTopbar();
+
         handler = new Handler();
 
         tvStep = (TextView) v.findViewById(R.id.tvStepsTitle);

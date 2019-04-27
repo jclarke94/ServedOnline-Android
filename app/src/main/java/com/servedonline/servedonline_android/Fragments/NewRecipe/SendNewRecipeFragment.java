@@ -47,6 +47,8 @@ public class SendNewRecipeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_send_new_recipe, container, false);
 
+        ((MainActivity) getActivity()).hideTopbar();
+
         handler = new Handler();
 
         recipeId = 0;
